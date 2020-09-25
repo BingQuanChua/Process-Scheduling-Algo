@@ -12,13 +12,14 @@ public class RoundRobin {
 		private static int timeCounter = 0;
 
 		public static void main(String[] args) {
-		// prompt user input
+		
 		Scanner input = new Scanner(System.in);
 		
 		int processCounter = 1;
 		int quantum;
 		int at, bt, priority;
 
+		// prompting user to input, will change to passing agruments laterw
 		System.out.print("Quantum => ");
 		quantum = input.nextInt();
 		int quantumCounter = quantum;
@@ -36,6 +37,8 @@ public class RoundRobin {
 			processCounter++;
 
 		} while(at > -1);
+
+		input.close();
 
 		// sorting according to priority
 		Collections.sort(listOfProcesses);

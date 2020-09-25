@@ -16,6 +16,7 @@ public class Process implements Comparable<Process> {
 		this.burstTime = bt;
 		this.priority = priority;
 	}
+	
 	public int getProcessNumber() {
 		return processNumber;
 	}
