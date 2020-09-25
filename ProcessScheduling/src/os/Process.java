@@ -1,3 +1,5 @@
+package os;
+
 /*
  	This class is for the process object
  	Might be useful for other scheduling algorithms

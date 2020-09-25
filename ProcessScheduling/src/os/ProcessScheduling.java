@@ -1,3 +1,5 @@
+package os;
+
 // this is the driver class
 
 public class ProcessScheduling {
