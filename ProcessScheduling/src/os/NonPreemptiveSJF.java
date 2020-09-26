@@ -1,3 +1,5 @@
+package os;
+
 import java.util.*; 
   
 public class NonPreemptiveSJF{ 

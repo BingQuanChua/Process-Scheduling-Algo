@@ -22,7 +22,7 @@ public class ProcessScheduling {
 			java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} 
 		catch (javax.swing.UnsupportedLookAndFeelException ex) {
-				java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
     	
         View view = new View();

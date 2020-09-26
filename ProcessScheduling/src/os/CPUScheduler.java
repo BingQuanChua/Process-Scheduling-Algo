@@ -11,8 +11,8 @@ public abstract class CPUScheduler {
 
 	public CPUScheduler()
 	{
-		processInputList = new ArrayList();
-		processOutputList = new ArrayList();
+		processInputList = new ArrayList<>();
+		processOutputList = new ArrayList<>();
 		timeQuantum = 1;
 	}
 

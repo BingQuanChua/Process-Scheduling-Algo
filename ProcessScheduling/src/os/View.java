@@ -85,14 +85,14 @@ public class View extends JFrame {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public boolean isCellEditable(int row, int column) { // making process, FT, WT, TAT not editable
-				return column == 0 || column == 4 || column == 5 || column == 6 ? false : true;
+			public boolean isCellEditable(int row, int column) { // making Process, FT, WT, TAT not editable
+				return column == 1 || column == 2 || column == 3 ? true : false;
 			}
 		};
 		table = new JTable(tableModel);
 		tablePanel = new JScrollPane(table);
 		tablePanel.setBackground(Color.WHITE);
-		tablePanel.setBounds(40, 100, 695, 250);	
+		tablePanel.setBounds(40, 100, 695, 190);	 //-60
 		contentPane.add(tablePanel);
 		
 		// controls creation

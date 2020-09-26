@@ -24,6 +24,7 @@ public class Controller {
     ActionListener addButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	view.getTable().clearSelection();
         	if (numberOfProcesses < 10) {
         		numberOfProcesses++;
         		view.getTableModel().addRow(new String[] {"P"+numberOfProcesses, "", "", "", "", "", ""});
@@ -34,6 +35,7 @@ public class Controller {
     ActionListener removeButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	view.getTable().clearSelection();
         	if (numberOfProcesses > 3) {
         		numberOfProcesses--;
         		view.getTableModel().removeRow(numberOfProcesses);
@@ -44,7 +46,14 @@ public class Controller {
     ActionListener resetButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
- 
+        	view.getTable().clearSelection();
+        	// clearing the table
+        	for (int i = 0; i < numberOfProcesses; i++) {
+        		for (int j = 1; j < 7; j++) {
+        			view.getTableModel().setValueAt("", i, j);
+        		}
+        	}
+        
             // remember to clear panel too
 
             view.getAvgTATTxtField().setText("");
