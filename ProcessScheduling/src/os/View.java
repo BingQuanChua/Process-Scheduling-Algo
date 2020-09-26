@@ -7,34 +7,32 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import java.awt.Color;
+import javax.swing.JComboBox;
 
 public class View extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
-	
-	private JRadioButton algo1RdBtn;
-	private JRadioButton algo2RdBtn;
-	private JRadioButton algo3RdBtn;
-	private ButtonGroup btnGroup;
-	private JTextField arrivalTxtField;
-	private JTextField burstTxtField;
-	private JTextField priorityTQTxtField;
-	private JLabel priorityTQPanel;
+	private JComboBox<String> comboBox;
+	private final String[] options = {"--please select an algorithm--", "Round Robin", "Non Preemptive SJF", "Preemptive Priority"};
+	private JButton addButton;
+	private JButton removeButton;
 	private JButton resetButton;
 	private JButton calculateButton;
-	private JPanel tablePanel;
+	private JScrollPane tablePanel;
 	private JTable table;
+	private DefaultTableModel tableModel;
+	private final String[] columnNames = {"Process", "Arrival Time", "Burst Time", "Priority", "Finish Time", "WT", "TAT"};
+	private String[][] data = {{"P1", "", "", "", "", "", ""}, {"P2", "", "", "", "", "", ""}, {"P3", "", "", "", "", "", ""}};
 	private JPanel ganttChartPanel;
 	private JTextField avgTATTxtField;
 	private JTextField totalTATTxtField;
@@ -69,172 +67,123 @@ public class View extends JFrame {
 	
 	private void initComponents() {
 		
-		// upper part creation
+		// algorithm selection creation
 		
 		JLabel algoPanel = new JLabel("Algorithm : ");
 		algoPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		algoPanel.setBounds(40, 40, 195, 40);
+		algoPanel.setBounds(40, 40, 150, 40);
 		contentPane.add(algoPanel);
-		
-		algo1RdBtn = new JRadioButton("Round Robin");
-		algo1RdBtn.setActionCommand("RR");
-		algo1RdBtn.setBounds(247, 40, 160, 40);
-		algo1RdBtn.setSelected(true);
-		contentPane.add(algo1RdBtn);
-		
-		algo2RdBtn = new JRadioButton("Non Preemptive SJF");
-		algo2RdBtn.setActionCommand("NPSJF");
-		algo2RdBtn.setBounds(411, 40, 160, 40);
-		contentPane.add(algo2RdBtn);
-		
-		algo3RdBtn = new JRadioButton("Preemptive Priority");
-		algo3RdBtn.setActionCommand("PR");
-		algo3RdBtn.setBounds(575, 40, 160, 40);
-		contentPane.add(algo3RdBtn);
-		setSize(new Dimension(800, 1000));
+		setSize(new Dimension(800, 800));
 
-		btnGroup = new ButtonGroup();
-		btnGroup.add(algo1RdBtn);
-		btnGroup.add(algo2RdBtn);
-		btnGroup.add(algo3RdBtn);
+		comboBox = new JComboBox<String>(options);
+		comboBox.setBounds(188, 40, 545, 40);
+		contentPane.add(comboBox);
 		
-		JLabel arrivalPanel = new JLabel("Arrival Time :");
-		arrivalPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		arrivalPanel.setBounds(40, 88, 195, 40);
-		contentPane.add(arrivalPanel);
+		// table panel creation
 		
-		arrivalTxtField = new JTextField();
-		arrivalTxtField.setBounds(235, 88, 500, 40);
-		contentPane.add(arrivalTxtField);
-		arrivalTxtField.setColumns(10);
+		tableModel = new DefaultTableModel(data, columnNames) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) { // making process, FT, WT, TAT not editable
+				return column == 0 || column == 4 || column == 5 || column == 6 ? false : true;
+			}
+		};
+		table = new JTable(tableModel);
+		tablePanel = new JScrollPane(table);
+		tablePanel.setBackground(Color.WHITE);
+		tablePanel.setBounds(40, 100, 695, 250);	
+		contentPane.add(tablePanel);
 		
-		JLabel burstPanel = new JLabel("Burst Time :");
-		burstPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		burstPanel.setBounds(40, 136, 195, 40);
-		contentPane.add(burstPanel);
+		// controls creation
 		
-		burstTxtField = new JTextField();
-		burstTxtField.setColumns(10);
-		burstTxtField.setBounds(235, 136, 500, 40);
-		contentPane.add(burstTxtField);
+		addButton = new JButton("Add");
+		addButton.setBounds(219, 370, 120, 40);
+		contentPane.add(addButton);
 		
-		priorityTQPanel = new JLabel("Time Quantum :");
-		priorityTQPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		priorityTQPanel.setBounds(40, 184, 195, 40);
-		contentPane.add(priorityTQPanel);
-		
-		priorityTQTxtField = new JTextField();
-		priorityTQTxtField.setColumns(10);
-		priorityTQTxtField.setBounds(235, 184, 500, 40);
-		contentPane.add(priorityTQTxtField);
+		removeButton = new JButton("Remove");
+		removeButton.setBounds(351, 370, 120, 40);
+		contentPane.add(removeButton);
 		
 		resetButton = new JButton("Reset");
-		resetButton.setBounds(480, 232, 120, 40);
+		resetButton.setBounds(483, 370, 120, 40);
 		contentPane.add(resetButton);
 		
 		calculateButton = new JButton("Calculate");
-		calculateButton.setBounds(615, 232, 120, 40);
+		calculateButton.setBounds(615, 370, 120, 40);
 		contentPane.add(calculateButton);
 		
-		// lower part creation
+		// gantt chart creation
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(35, 290, 705, 3);
+		separator.setBounds(35, 420, 705, 3);
 		contentPane.add(separator);
-		
-		JLabel resultLabel = new JLabel("Results");
-		resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		resultLabel.setBounds(40, 297, 695, 40);
-		contentPane.add(resultLabel);
-		
-		tablePanel = new JPanel();
-		tablePanel.setBackground(Color.WHITE);
-		tablePanel.setBounds(40, 340, 695, 300);	
-		table = new JTable();
-		tablePanel.add(table);
-		contentPane.add(tablePanel);
 		
 		ganttChartPanel = new JPanel();
 		ganttChartPanel.setBackground(Color.WHITE);
-		ganttChartPanel.setBounds(40, 650, 695, 150);
+		ganttChartPanel.setBounds(40, 440, 695, 150);
 		contentPane.add(ganttChartPanel);
+		
+		// calculation summary creation
 		
 		JLabel avgTATPanel = new JLabel("Average Turn Around Time :");
 		avgTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgTATPanel.setBounds(40, 810, 175, 40);
+		avgTATPanel.setBounds(40, 610, 175, 40);
 		contentPane.add(avgTATPanel);
 		
 		JLabel totalTATPanel = new JLabel("Total Turn Around Time :");
 		totalTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalTATPanel.setBounds(40, 860, 175, 40);
+		totalTATPanel.setBounds(40, 660, 175, 40);
 		contentPane.add(totalTATPanel);
 		
 		JLabel avgWTPanel = new JLabel("Average Waiting Time :");
 		avgWTPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgWTPanel.setBounds(398, 810, 175, 40);
+		avgWTPanel.setBounds(398, 610, 175, 40);
 		contentPane.add(avgWTPanel);
 		
 		JLabel totalWTPanel = new JLabel("Total Waiting Time :");
 		totalWTPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalWTPanel.setBounds(398, 860, 175, 40);
+		totalWTPanel.setBounds(398, 660, 175, 40);
 		contentPane.add(totalWTPanel);
 		
 		avgTATTxtField = new JTextField();
 		avgTATTxtField.setColumns(10);
-		avgTATTxtField.setBounds(227, 810, 150, 40);
+		avgTATTxtField.setBounds(227, 610, 150, 40);
 		avgTATTxtField.setEditable(false);
 		contentPane.add(avgTATTxtField);
 		
 		totalTATTxtField = new JTextField();
 		totalTATTxtField.setColumns(10);
-		totalTATTxtField.setBounds(227, 860, 150, 40);
+		totalTATTxtField.setBounds(227, 660, 150, 40);
 		totalTATTxtField.setEditable(false);
 		contentPane.add(totalTATTxtField);
 		
 		avgWTTxtField = new JTextField();
 		avgWTTxtField.setColumns(10);
-		avgWTTxtField.setBounds(585, 810, 150, 40);
+		avgWTTxtField.setBounds(585, 610, 150, 40);
 		avgWTTxtField.setEditable(false);
 		contentPane.add(avgWTTxtField);
 		
 		totalWTTxtField = new JTextField();
 		totalWTTxtField.setColumns(10);
-		totalWTTxtField.setBounds(585, 860, 150, 40);
+		totalWTTxtField.setBounds(585, 660, 150, 40);
 		totalWTTxtField.setEditable(false);
 		contentPane.add(totalWTTxtField);
-	}
 
-	public JRadioButton getAlgo1RdBtn() {
-		return algo1RdBtn;
 	}
 	
-	public JRadioButton getAlgo2RdBtn() {
-		return algo2RdBtn;
+	public JComboBox<String> getComboBox() {
+		return comboBox;
 	}
 	
-	public JRadioButton getAlgo3RdBtn() {
-		return algo3RdBtn;
-	}
-
-	public ButtonGroup getBtnGroup() {
-		return btnGroup;
+	public JButton getAddButton() {
+		return addButton;
 	}
 	
-	public JTextField getArrivalTxtField() {
-		return arrivalTxtField;
+	public JButton getRemoveButton() {
+		return removeButton;
 	}
 	
-	public JTextField getBurstTxtField() {
-		return burstTxtField;
-	}
-	
-	public JTextField getPriorityTQTxtField() {
-		return priorityTQTxtField;
-	}
-
-	public JLabel getPriorityTQPanel() {
-		return priorityTQPanel;
-	}
 	
 	public JButton getResetButton() {
 		return resetButton;
@@ -244,12 +193,12 @@ public class View extends JFrame {
 		return calculateButton;
 	}
 	
-	public JPanel getTablePanel() {
-		return tablePanel;
-	}
-	
 	public JTable getTable() {
 		return table;
+	}
+	
+	public DefaultTableModel getTableModel() {
+		return tableModel;
 	}
 	
 	public JPanel getGanttChartPanel() {
@@ -267,6 +216,7 @@ public class View extends JFrame {
 	public JTextField getAvgWTTxtField() {
 		return avgWTTxtField;
 	}
+	
 	public JTextField getTotalWTTxtField() {
 		return totalWTTxtField;
 	}
