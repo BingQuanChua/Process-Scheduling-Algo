@@ -15,11 +15,11 @@ public class PriorityPreemptive extends CPUScheduler {
 		 * Sort all process according to the arrival time
 		 */
         Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
-            if (((ProcessInput) o1).getArrivalTime() == ((ProcessInput) o2).getArrivalTime())
+            if (((Process) o1).getArrivalTime() == ((Process) o2).getArrivalTime())
             {
                 return 0;
             }
-            else if (((ProcessInput) o1).getArrivalTime() < ((ProcessInput) o2).getArrivalTime())
+            else if (((Process) o1).getArrivalTime() < ((Process) o2).getArrivalTime())
             {
                 return -1;
             }
@@ -29,11 +29,11 @@ public class PriorityPreemptive extends CPUScheduler {
             }
         });
         
-        List<ProcessInput> processList = new ArrayList<ProcessInput>(); //copy to processList
+        List<Process> processList = new ArrayList<Process>(); //copy to processList
         
-        for (ProcessInput process : this.getProcessInputList())
+        for (Process process : this.getProcessInputList())
         {
-        	processList.add(new ProcessInput(process.getProcessName(), process.getArrivalTime(), process.getBurstTime(), process.getPriorityLevel()));
+        	processList.add(new Process(process.getProcessName(), process.getArrivalTime(), process.getBurstTime(), process.getPriorityLevel()));
         }
         
         int time = processList.get(0).getArrivalTime(); //get the arrival time of first process
@@ -45,9 +45,9 @@ public class PriorityPreemptive extends CPUScheduler {
         while (!processList.isEmpty())
         {
         	
-            List<ProcessInput> availableProcessList = new ArrayList<ProcessInput>();
+            List<Process> availableProcessList = new ArrayList<Process>();
             
-            for (ProcessInput process : processList)
+            for (Process process : processList)
             {
             	//if the process have arrived, add them into availableprocessList
                 if (process.getArrivalTime() <= time)
@@ -58,11 +58,11 @@ public class PriorityPreemptive extends CPUScheduler {
             
             //sort according priority
             Collections.sort(availableProcessList, (Object o1, Object o2) -> {
-                if (((ProcessInput) o1).getPriorityLevel()== ((ProcessInput) o2).getPriorityLevel())
+                if (((Process) o1).getPriorityLevel()== ((Process) o2).getPriorityLevel())
                 {
                     return 0;
                 }
-                else if (((ProcessInput) o1).getPriorityLevel() < ((ProcessInput) o2).getPriorityLevel())
+                else if (((Process) o1).getPriorityLevel() < ((Process) o2).getPriorityLevel())
                 {
                     return -1;
                 }
@@ -73,7 +73,7 @@ public class PriorityPreemptive extends CPUScheduler {
             });
             
             //get the first process
-            ProcessInput process = availableProcessList.get(0);
+            Process process = availableProcessList.get(0);
             
             //add it into timeLine(processName, start time, finish time = (start time + 1))
             this.getProcessOutputList().add(new ProcessOutput(process.getProcessName(), time, ++time));

@@ -12,14 +12,13 @@ public class TempMain {
 
 	 public static void psp()
 	 {
-		 CPUScheduler psp = new PriorityPreemptive();
-		 psp.add(new ProcessInput("P1", 8, 1));
-		 psp.add(new ProcessInput("P2", 5, 1));
-		 psp.add(new ProcessInput("P3", 2, 7));
-		 psp.add(new ProcessInput("P4", 4, 3));
-		 psp.add(new ProcessInput("P5", 2, 8));
-		 psp.add(new ProcessInput("P6", 4, 2));
-		 psp.add(new ProcessInput("P7", 3, 5));
+		 CPUScheduler psp = new NonPreemptiveSJF();
+		 psp.add(new Process("P1", 1, 3));
+		 psp.add(new Process("P2", 1, 5));
+		 psp.add(new Process("P3", 3, 3));
+		 psp.add(new Process("P4", 3, 3));
+		 psp.add(new Process("P5", 5, 4));
+	
 		 psp.process();
 		 display(psp);
 	 }
@@ -28,7 +27,7 @@ public class TempMain {
 		 
 		 System.out.println("Process\tAT\tBT\tWT\tTAT");
 
-	        for (ProcessInput process : scheduler.getProcessInputList())
+	        for (Process process : scheduler.getProcessInputList())
 	        {
 	            System.out.println(process.getProcessName() + "\t" + process.getArrivalTime() + "\t" + process.getBurstTime() + "\t" + process.getWaitingTime() + "\t" + process.getTurnaroundTime());
 	        }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class CPUScheduler {
 	
-	private final List<ProcessInput> processInputList; // Process Input = data collected in every processInput
+	private final List<Process> processInputList; // Process Input = data collected in every processInput
 	private final List<ProcessOutput> processOutputList; // Process Output = result after running scheduler
 	private int timeQuantum; // for round robin
 
@@ -16,7 +16,7 @@ public abstract class CPUScheduler {
 		timeQuantum = 1;
 	}
 
-	public boolean add(ProcessInput inputprocessInput)
+	public boolean add(Process inputprocessInput)
 	{
 		return processInputList.add(inputprocessInput);
 	}
@@ -39,7 +39,7 @@ public abstract class CPUScheduler {
 	{
 		int total = 0;
 		
-		for (ProcessInput processInput : processInputList) 
+		for (Process processInput : processInputList) 
 		{
 			total += processInput.getWaitingTime();
 		}
@@ -51,7 +51,7 @@ public abstract class CPUScheduler {
 	{
 		int total = 0;
 		
-		for (ProcessInput processInput : processInputList) 
+		for (Process processInput : processInputList) 
 		{
 			total += processInput.getTurnaroundTime();
 		}
@@ -63,7 +63,7 @@ public abstract class CPUScheduler {
 	{
 		double avg = 0.0;
 
-		for (ProcessInput processInput : processInputList)
+		for (Process processInput : processInputList)
 		{
 			avg += processInput.getWaitingTime();
 		}
@@ -75,7 +75,7 @@ public abstract class CPUScheduler {
 	{
 		double avg = 0.0;
 
-		for (ProcessInput inptprocessInput : processInputList)
+		for (Process inptprocessInput : processInputList)
 		{
 			avg += inptprocessInput.getTurnaroundTime();
 		}
@@ -83,7 +83,7 @@ public abstract class CPUScheduler {
 		return avg / processInputList.size();
 	}
 
-	public ProcessOutput getProcessOutput(ProcessInput processInput)
+	public ProcessOutput getProcessOutput(Process processInput)
 	{
 		for (ProcessOutput processOutput : processOutputList)
 		{
@@ -96,9 +96,9 @@ public abstract class CPUScheduler {
 		return null;
 	}
 
-	public ProcessInput getProcessInput(String processName)
+	public Process getProcessInput(String processName)
 	{
-		for (ProcessInput processInput : processInputList)
+		for (Process processInput : processInputList)
 		{
 			if (processInput.getProcessName().equals(processName))
 			{
@@ -113,7 +113,7 @@ public abstract class CPUScheduler {
 	/********** **********
 	 * Get List
 	 ********** **********/
-	public List<ProcessInput> getProcessInputList()
+	public List<Process> getProcessInputList()
 	{
 		return processInputList;
 	}
