@@ -1,109 +1,97 @@
 package os;
 
-/*
- 	Run this class for Round Robin Scheduling 
- 	Prompts quantum, AT, BT and priority of processes
- 	To-dos: exception handling, restrictions (havent do because this might be useful for midterm :P)
-*/
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
-import java.util.*;
-
-public class RoundRobin {
-		private static ArrayList<Process> listOfProcesses = new ArrayList<>();
-		private static Queue<Process> readyQueue = new LinkedList<>();
-		private static int timeCounter = 0;
-
-		public static void main(String[] args) {
+public class RR extends CPUScheduler{
+    
+	private Queue<ProcessInput> readyQueue;
+	private List<ProcessInput> processList;
+	
+	private int timeCounter;
+	private int quantumCounter;
+	private int totalTime;
+	
+	public void process() {
 		
-		Scanner input = new Scanner(System.in);
+		readyQueue = new LinkedList<>(); // request queue initially empty
+		timeCounter = 0; // current time
+		quantumCounter = this.getTimeQuantum();
+		totalTime = 0; // total time for all process
 		
-		int processCounter = 1;
-		int quantum;
-		int at, bt, priority;
-
-		// prompting user to input, will change to passing agruments laterw
-		System.out.print("Quantum => ");
-		quantum = input.nextInt();
-		int quantumCounter = quantum;
-		System.out.println("Enter -1 to quit");
-
-		do {
-			System.out.print("Enter AT, BT, Priority for Process " + processCounter + " => ");
-			at = input.nextInt();
-			if(at < 0) {
-				continue;
-			}
-			bt = input.nextInt();
-			priority = input.nextInt();
-			listOfProcesses.add(new Process(processCounter, at, bt, priority));
-			processCounter++;
-
-		} while(at > -1);
-
-		input.close();
-
-		// sorting according to priority
-		Collections.sort(listOfProcesses);
-
-		int totalTime = 0; // shortest arrival time + total burst time
-		int shortest = listOfProcesses.get(1).getArrivalTime();
-		for(int i = 0; i < listOfProcesses.size(); i++) {
-			totalTime += listOfProcesses.get(i).getBurstTime();
-			if(listOfProcesses.get(i).getArrivalTime() < shortest) {
-				shortest = listOfProcesses.get(i).getArrivalTime();
-			}
-		}
-		totalTime += shortest;
-
-		checkArrivalTime();
-		System.out.print(timeCounter + "--P" + readyQueue.peek().getProcessNumber());
-		do {
-			if(readyQueue.size() == 0) {
-				continue;
-			}
-			else {
-				readyQueue.peek().decreaseBurstTime(); // decrease burst time by 1
-				quantumCounter--;
-				timeCounter++;
-				checkArrivalTime(); // check for new arrivals
-
-				if(readyQueue.peek().getBurstTime() == 0) {
-					readyQueue.remove(); // remove from queue if process finished
-					quantumCounter = quantum; // reset quantumCounter
-					
-					// check if queue is empty 
-					// for printing purpose only
-					if(readyQueue.size() == 0)
-						System.out.print("-" + timeCounter); // the end of the scheduling
-					else
-						System.out.print("-" + timeCounter + "--P" + readyQueue.peek().getProcessNumber());
-				}
-				else {
-					if(quantumCounter == 0) {
-						// time to let another process begin, put current process to end of queue
-						Process p = readyQueue.peek();
-						readyQueue.remove();
-						readyQueue.add(p);
-						quantumCounter = quantum; // reset quantumCounter
-						System.out.print("-" + timeCounter + "--P" + readyQueue.peek().getProcessNumber());
-					}
-					else {
-						// the current process continues
-						System.out.print("-");
-					}
-				}
-			}
-
-		} while(timeCounter < totalTime);
-		System.out.println();
-	} 
-
-	public static void checkArrivalTime() {
-		// scan through arrival time
-		for(int i = 0; i < listOfProcesses.size(); i++) {
-			// equals to current time
-			if (listOfProcesses.get(i).getArrivalTime() == timeCounter) {
-				readyQueue.add(listOfProcesses.get(i));
+		// sorting according to Arrival Time
+		Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
+            if (((ProcessInput) o1).getArrivalTime() == ((ProcessInput) o2).getArrivalTime()) {
+                return 0;
+            }
+            else if (((ProcessInput) o1).getArrivalTime() < ((ProcessInput) o2).getArrivalTime()) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
+        });
+		
+		// copy to new ArrayList
+		processList = new ArrayList<ProcessInput>(); 
+        
+        for (ProcessInput process : this.getProcessInputList()) {
+        	processList.add(new ProcessInput(process.getProcessName(), process.getArrivalTime(), process.getBurstTime(), process.getPriorityLevel()));
+        	totalTime += process.getBurstTime();
+        }
+        
+        int earliest = processList.get(0).getArrivalTime();  // earliest arrival time
+        timeCounter += earliest;
+        totalTime += earliest;
+        checkArrivalTime();
+        
+        do {
+        	if (readyQueue.size() == 0) {
+        		continue; // skips, I doubt will happen but just in case
+        	}
+        	
+        	ProcessInput p = readyQueue.peek();
+        	p.setBurstTime(p.getBurstTime()-1);
+        	quantumCounter--;
+        	this.getProcessOutputList().add(new ProcessOutput(p.getProcessName(), timeCounter, ++timeCounter));
+        	
+        	checkArrivalTime(); // check for new arrivals
+        	if(readyQueue.peek().getBurstTime() == 0) {
+        		readyQueue.remove(); // remove from queue if process finished
+        		quantumCounter = this.getTimeQuantum(); // reset quantumCounter
+        	}
+        	else {
+        		if(quantumCounter == 0) {
+        			ProcessInput temp = readyQueue.peek();
+        			readyQueue.remove(); // remove from the front..
+        			readyQueue.add(temp); // ..add to the back
+        			quantumCounter = this.getTimeQuantum(); // reset quantumCounter
+        		}
+        	}
+        } while (timeCounter < totalTime);
+        
+        
+        // rearrange the timeline
+        for (int i = this.getProcessOutputList().size() - 1; i > 0; i--)
+        {
+            List<ProcessOutput> processOutputList = this.getProcessOutputList();
+            
+            if (processOutputList.get(i - 1).getProcessName().equals(processOutputList.get(i).getProcessName()))
+            {
+                processOutputList.get(i - 1).setFinishTime(processOutputList.get(i).getFinishTime());
+                processOutputList.remove(i);
+            }
+        }
+	}
+	
+	public void checkArrivalTime() {
+		// scan through all Arrival Time
+		for(ProcessInput process : processList) {
+			if(process.getArrivalTime() == timeCounter) {
+				readyQueue.add(process);
 			}
 		}
 	}
