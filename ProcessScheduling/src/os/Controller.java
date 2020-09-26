@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 public class Controller {
     private View view;
     private int numberOfProcesses = 3;
+    private CPUScheduler scheduler;
 
     public Controller(View view) {
         this.view = view;
@@ -74,6 +75,7 @@ public class Controller {
         				System.out.println("1");
         				break;
         		case 1: // RR
+        				roundRobinAlgorithm();
         				break;
         		case 2: // NP SJF
         				break;
@@ -84,4 +86,57 @@ public class Controller {
         	}
         }
     };
+    
+    public void readDataFromTable(CPUScheduler scheduler) {
+    	try {
+    		// reading AT, BT and Priority
+    		for (int i = 0; i < numberOfProcesses; i++) {
+    			int at = Integer.parseInt((String) view.getTableModel().getValueAt(i, 1));
+    			int bt = Integer.parseInt((String) view.getTableModel().getValueAt(i, 2));
+    			int priority;
+    			if (scheduler instanceof RoundRobin) {
+    				priority = 1; // in case user did not enter
+    			} 
+    			else {
+    				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
+    			}
+    			scheduler.add(new ProcessInput("P"+(i+1), at, bt, priority));
+    			// System.out.println("at: " + at + " bt: " + bt + " pt: " + priority);
+	    	}
+    	} catch(Exception ex) {
+    		JOptionPane.showMessageDialog(view,"Table contains non-integer!");  
+    	}
+	    	
+    }
+    
+    public void writeDataToTable(CPUScheduler scheduler) {
+    	// writing FT, WT, TAT to table
+    	for (int i = 0; i < numberOfProcesses; i++) {
+    		// view.getTableModel().setValueAt(aValue, row, column);
+    	}
+    	
+    	// drawing gantt chart
+    	
+    	// writing summary
+    	view.getAvgTATTxtField().setText(scheduler.getAverageTurnAroundTime()+"");
+    	view.getTotalTATTxtField().setText(scheduler.getTotalTurnAroundTime()+"");
+    	view.getAvgWTTxtField().setText(scheduler.getAverageWaitingTime()+"");
+    	view.getTotalWTTxtField().setText(scheduler.getTotalWaitingTime()+"");
+    	
+    }
+    
+    public void roundRobinAlgorithm() {
+    	String q = JOptionPane.showInputDialog(view,"Enter Time Quantum");  
+		try {
+			int quantum = Integer.parseInt(q);
+			scheduler = new RoundRobin();
+			scheduler.setTimeQuantum(quantum);
+			readDataFromTable(scheduler);
+			scheduler.process();
+			writeDataToTable(scheduler);
+			
+		} catch(Exception ex) {
+			JOptionPane.showMessageDialog(view,"Please enter an integer!");  
+		}
+    }
 }

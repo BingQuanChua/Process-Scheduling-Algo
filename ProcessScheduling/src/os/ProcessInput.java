@@ -9,6 +9,7 @@ public class ProcessInput
     private int priorityLevel;
     private int waitingTime;
     private int turnaroundTime;
+    private int finishTime;
     
     /********** **********
      * Constructor
@@ -65,6 +66,11 @@ public class ProcessInput
         this.turnaroundTime = turnaroundTime;
     }
     
+    public void setFinishTime(int finishTime) 
+    {
+    	this.finishTime = finishTime;
+    }
+    
     /********** **********
      * Getter
      ********** **********/
@@ -96,5 +102,10 @@ public class ProcessInput
     public int getTurnaroundTime()
     {
         return this.turnaroundTime;
+    }
+    
+    public int getFinishTime() 
+    {
+    	return this.finishTime;
     }
 }

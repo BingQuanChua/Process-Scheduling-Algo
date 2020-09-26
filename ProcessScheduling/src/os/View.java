@@ -98,75 +98,75 @@ public class View extends JFrame {
 		// controls creation
 		
 		addButton = new JButton("Add");
-		addButton.setBounds(219, 370, 120, 40);
+		addButton.setBounds(219, 310, 120, 40);
 		contentPane.add(addButton);
 		
 		removeButton = new JButton("Remove");
-		removeButton.setBounds(351, 370, 120, 40);
+		removeButton.setBounds(351, 310, 120, 40);
 		contentPane.add(removeButton);
 		
 		resetButton = new JButton("Reset");
-		resetButton.setBounds(483, 370, 120, 40);
+		resetButton.setBounds(483, 310, 120, 40);
 		contentPane.add(resetButton);
 		
 		calculateButton = new JButton("Calculate");
-		calculateButton.setBounds(615, 370, 120, 40);
+		calculateButton.setBounds(615, 310, 120, 40);
 		contentPane.add(calculateButton);
 		
 		// gantt chart creation
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(35, 420, 705, 3);
+		separator.setBounds(35, 370, 705, 3);
 		contentPane.add(separator);
 		
 		ganttChartPanel = new JPanel();
 		ganttChartPanel.setBackground(Color.WHITE);
-		ganttChartPanel.setBounds(40, 440, 695, 150);
+		ganttChartPanel.setBounds(40, 380, 695, 150);
 		contentPane.add(ganttChartPanel);
 		
 		// calculation summary creation
 		
 		JLabel avgTATPanel = new JLabel("Average Turn Around Time :");
 		avgTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgTATPanel.setBounds(40, 610, 175, 40);
+		avgTATPanel.setBounds(40, 550, 175, 40);
 		contentPane.add(avgTATPanel);
 		
 		JLabel totalTATPanel = new JLabel("Total Turn Around Time :");
 		totalTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalTATPanel.setBounds(40, 660, 175, 40);
+		totalTATPanel.setBounds(40, 600, 175, 40);
 		contentPane.add(totalTATPanel);
 		
 		JLabel avgWTPanel = new JLabel("Average Waiting Time :");
 		avgWTPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgWTPanel.setBounds(398, 610, 175, 40);
+		avgWTPanel.setBounds(398, 550, 175, 40);
 		contentPane.add(avgWTPanel);
 		
 		JLabel totalWTPanel = new JLabel("Total Waiting Time :");
 		totalWTPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalWTPanel.setBounds(398, 660, 175, 40);
+		totalWTPanel.setBounds(398, 600, 175, 40);
 		contentPane.add(totalWTPanel);
 		
 		avgTATTxtField = new JTextField();
 		avgTATTxtField.setColumns(10);
-		avgTATTxtField.setBounds(227, 610, 150, 40);
+		avgTATTxtField.setBounds(227, 550, 150, 40);
 		avgTATTxtField.setEditable(false);
 		contentPane.add(avgTATTxtField);
 		
 		totalTATTxtField = new JTextField();
 		totalTATTxtField.setColumns(10);
-		totalTATTxtField.setBounds(227, 660, 150, 40);
+		totalTATTxtField.setBounds(227, 600, 150, 40);
 		totalTATTxtField.setEditable(false);
 		contentPane.add(totalTATTxtField);
 		
 		avgWTTxtField = new JTextField();
 		avgWTTxtField.setColumns(10);
-		avgWTTxtField.setBounds(585, 610, 150, 40);
+		avgWTTxtField.setBounds(585, 550, 150, 40);
 		avgWTTxtField.setEditable(false);
 		contentPane.add(avgWTTxtField);
 		
 		totalWTTxtField = new JTextField();
 		totalWTTxtField.setColumns(10);
-		totalWTTxtField.setBounds(585, 660, 150, 40);
+		totalWTTxtField.setBounds(585, 600, 150, 40);
 		totalWTTxtField.setEditable(false);
 		contentPane.add(totalWTTxtField);
 

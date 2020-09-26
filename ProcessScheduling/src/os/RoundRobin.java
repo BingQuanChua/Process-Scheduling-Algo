@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class RR extends CPUScheduler{
+public class RoundRobin extends CPUScheduler{
     
 	private Queue<ProcessInput> readyQueue;
 	private List<ProcessInput> processList;

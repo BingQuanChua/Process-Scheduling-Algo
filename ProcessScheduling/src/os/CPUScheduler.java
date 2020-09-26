@@ -34,6 +34,30 @@ public abstract class CPUScheduler {
 	{
 		return timeQuantum;
 	}
+	
+	public int getTotalWaitingTime() 
+	{
+		int total = 0;
+		
+		for (ProcessInput processInput : processInputList) 
+		{
+			total += processInput.getWaitingTime();
+		}
+		
+		return total;
+	}
+	
+	public int getTotalTurnAroundTime() 
+	{
+		int total = 0;
+		
+		for (ProcessInput processInput : processInputList) 
+		{
+			total += processInput.getTurnaroundTime();
+		}
+		
+		return total;
+	}
 
 	public double getAverageWaitingTime()
 	{
