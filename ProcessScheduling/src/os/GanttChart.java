@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class GanttChart extends JPanel {
@@ -19,7 +18,6 @@ public class GanttChart extends JPanel {
         if (timeline != null)
         {
         	int previousWidth = 0;
-            System.out.println("Inside Gantt Chart paintComponent");
             for (int i = 0; i < timeline.size(); i++)
             {
             	ProcessOutput event = timeline.get(i);

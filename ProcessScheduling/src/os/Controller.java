@@ -127,7 +127,7 @@ public class Controller {
     			}
 
     			scheduler.add(new Process("P"+(i+1), at, bt, priority));
-    			// System.out.println("at: " + at + " bt: " + bt + " pt: " + priority);
+    			System.out.println("P"+(i+1) + "\t" + at + "\t" + bt + "\t" + priority);
 	    	}
     	} catch(Exception ex) {
     		JOptionPane.showMessageDialog(view, errorMessage);  
