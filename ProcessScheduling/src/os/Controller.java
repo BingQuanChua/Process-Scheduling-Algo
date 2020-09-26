@@ -125,9 +125,9 @@ public class Controller {
     			else {
     				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
     			}
-    			
-    			scheduler.add(new ProcessInput("P"+(i+1), at, bt, priority));
-    			System.out.println("P"+(i+1) + "\t" + at + "\t" + bt + "\t" + priority);
+
+    			scheduler.add(new Process("P"+(i+1), at, bt, priority));
+    			// System.out.println("at: " + at + " bt: " + bt + " pt: " + priority);
 	    	}
     	} catch(Exception ex) {
     		JOptionPane.showMessageDialog(view, errorMessage);  

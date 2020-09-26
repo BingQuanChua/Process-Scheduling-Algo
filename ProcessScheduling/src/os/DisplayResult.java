@@ -15,7 +15,7 @@ public class DisplayResult {
 						 + "\n***************");
 		System.out.println("Process\tAT\tBT\tWT\tTAT");
 
-		for (ProcessInput process : scheduler.getProcessInputList())
+		for (Process process : scheduler.getProcessInputList())
 		{
 			System.out.println(process.getProcessName() + "\t" + process.getArrivalTime() + "\t" + process.getBurstTime() + "\t" + process.getWaitingTime() + "\t" + process.getTurnaroundTime());
 		}

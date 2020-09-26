@@ -8,14 +8,14 @@ import java.util.Queue;
 
 public class RoundRobin extends CPUScheduler{
     
-	private Queue<ProcessInput> readyQueue;
-	private List<ProcessInput> processList;
+	private Queue<Process> readyQueue;
+	private List<Process> processList;
 	
 	private int timeCounter;
 	private int quantumCounter;
 	private int totalTime;
 	
-	public void process() {
+	public void process() {	
 		
 		readyQueue = new LinkedList<>(); // request queue initially empty
 		timeCounter = 0; // current time
@@ -24,10 +24,10 @@ public class RoundRobin extends CPUScheduler{
 		
 		// sorting according to Arrival Time
 		Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
-            if (((ProcessInput) o1).getArrivalTime() == ((ProcessInput) o2).getArrivalTime()) {
+            if (((Process) o1).getArrivalTime() == ((Process) o2).getArrivalTime()) {
                 return 0;
             }
-            else if (((ProcessInput) o1).getArrivalTime() < ((ProcessInput) o2).getArrivalTime()) {
+            else if (((Process) o1).getArrivalTime() < ((Process) o2).getArrivalTime()) {
                 return -1;
             }
             else {
@@ -36,10 +36,10 @@ public class RoundRobin extends CPUScheduler{
         });
 		
 		// copy to new ArrayList
-		processList = new ArrayList<ProcessInput>(); 
+		processList = new ArrayList<Process>(); 
         
-        for (ProcessInput process : this.getProcessInputList()) {
-        	processList.add(new ProcessInput(process.getProcessName(), process.getArrivalTime(), process.getBurstTime(), process.getPriorityLevel()));
+        for (Process process : this.getProcessInputList()) {
+        	processList.add(new Process(process.getProcessName(), process.getArrivalTime(), process.getBurstTime(), process.getPriorityLevel()));
         	totalTime += process.getBurstTime();
         }
         
@@ -53,7 +53,7 @@ public class RoundRobin extends CPUScheduler{
         		continue; // skips, I doubt will happen but just in case
         	}
         	
-        	ProcessInput p = readyQueue.peek();
+        	Process p = readyQueue.peek();
         	p.setBurstTime(p.getBurstTime()-1);
         	quantumCounter--;
         	this.getProcessOutputList().add(new ProcessOutput(p.getProcessName(), timeCounter, ++timeCounter));
@@ -65,7 +65,7 @@ public class RoundRobin extends CPUScheduler{
         	}
         	else {
         		if(quantumCounter == 0) {
-        			ProcessInput temp = readyQueue.peek();
+        			Process temp = readyQueue.peek();
         			readyQueue.remove(); // remove from the front..
         			readyQueue.add(temp); // ..add to the back
         			quantumCounter = this.getTimeQuantum(); // reset quantumCounter
@@ -89,7 +89,7 @@ public class RoundRobin extends CPUScheduler{
 	
 	public void checkArrivalTime() {
 		// scan through all Arrival Time
-		for(ProcessInput process : processList) {
+		for(Process process : processList) {
 			if(process.getArrivalTime() == timeCounter) {
 				readyQueue.add(process);
 			}

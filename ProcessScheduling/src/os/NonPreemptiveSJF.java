@@ -2,58 +2,49 @@ package os;
 
 import java.util.*; 
   
-public class NonPreemptiveSJF{ 
+public class NonPreemptiveSJF extends CPUScheduler{ 
   
-	private static ArrayList<Process> listOfProcesses = new ArrayList<>();
-
+	private List<Process> processList;
 	
-	public static void main(String[] args) {
-
-		int process,at, bt, priority;
-		int processCounter=1;
+	public void process() {
+		//new ArrayList
+		processList = new ArrayList<Process>();
+		//declare the variables
 		int starting = 0, total = 0;
 	    double totalWT = 0, totalTT = 0, avgWT = 0, avgTT = 0;
+	    
+	    // sorting according to Arrival Time
+	    Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
+            if (((Process) o1).getArrivalTime() == ((Process) o2).getArrivalTime())
+            {
+                return 0;
+            }
+            else if (((Process) o1).getArrivalTime() < ((Process) o2).getArrivalTime())
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        });
 
-		Scanner input = new Scanner(System.in);
-
-		do {
-		// prompt user input for number of process
-		System.out.print("Please enter the number of process(range from 3 to 10) => ");
-		process = input.nextInt();
-		System.out.println("");
-		} while(process < 3 || process > 10);
-		
-		int flag[] = new int[process];
-		
-			do {
-				System.out.print("Enter Arrival Time for Process" + processCounter + " => ");
-				at = input.nextInt();
-				if(at < 0) {
-					continue;
-				}
-				System.out.print("Enter Burst Time for Process " + processCounter + " => ");
-				bt = input.nextInt();
-				System.out.print("Enter Priority for Process " + processCounter + " => ");
-				priority = input.nextInt();
-				System.out.println("");
-				listOfProcesses.add(new Process(processCounter,at, bt, priority));
-				processCounter++;
-			} while(at > -1 && processCounter <= process);
+		for (Process process : this.getProcessInputList()) {
+				processList.add(new Process(process.getProcessName(),process.getArrivalTime(),process.getBurstTime()));
+		}
+			int flag[] = new int[processList.size()];//checks if process is completed or not
+			int finishTime[] = new int[processList.size()];
+			int waitingTime[] = new int[processList.size()];
+			int turnaroundTime[] = new int[processList.size()];
 			
-			input.close();
-
-			int finishTime[] = new int[process];
-			int waitingTime[] = new int[process];
-			int turnaroundTime[] = new int[process];
-			
-			while(total != process) {
-				int current = process; //current process
+			while(total != processList.size()) {
+				int current = processList.size(); //current process
 				int min = 500; 
 		
 				try {
-				for (int j = 0; j < listOfProcesses.size(); j++) {
-					if((listOfProcesses.get(j).getArrivalTime() <= starting) && (listOfProcesses.get(j).getBurstTime() < min) && (flag[j]==0)) {
-						min = listOfProcesses.get(j).getBurstTime();
+				for (int j = 0; j < processList.size(); j++) {
+					if((processList.get(j).getArrivalTime() <= starting) && (processList.get(j).getBurstTime() < min) && (flag[j]==0)) {
+						min = processList.get(j).getBurstTime();
 						current = j;
 					}
 				}
@@ -63,23 +54,34 @@ public class NonPreemptiveSJF{
 			}
 				
 				//current 
-				if(current == process)
+				if(current == processList.size())
 					starting++;
 				
 				else {
-					finishTime[current] = starting + listOfProcesses.get(current).getBurstTime();
-					starting += listOfProcesses.get(current).getBurstTime();
-					turnaroundTime[current] = finishTime[current] - listOfProcesses.get(current).getArrivalTime();
-					waitingTime[current] = turnaroundTime[current] - listOfProcesses.get(current).getBurstTime();
+					finishTime[current] = starting + processList.get(current).getBurstTime();//calculate finishTime
+					turnaroundTime[current] = finishTime[current] - processList.get(current).getArrivalTime();//calculate Turnaround Time
+					waitingTime[current] = turnaroundTime[current] - processList.get(current).getBurstTime();//calculate Waiting Time
 					flag[current] = 1;
 					total++;
+					Process p = processList.get(current);
+					this.getProcessOutputList().add(new ProcessOutput(p.getProcessName(), starting, finishTime[current]));
+					starting += processList.get(current).getBurstTime();
 				}
 			}
-
+			// rearrange the timeline
+			for (int i = 0; i < processList.size(); i++)
+	        {
+				Process p = processList.get(i);
+	            if (processList.get(i).getProcessName().equals(p.getProcessName()))
+	            {
+	            	processList.remove(i);
+	                break;
+	            }
+	        }
 			//display summary
-			System.out.println("PROCESS ARRIVAL BURST FINISHING TURNAROUND WAITING ");
-			for (int k = 0;k < listOfProcesses.size();k++) {
-				System.out.print("P"+k+"\t"+listOfProcesses.get(k).getArrivalTime()+"\t"+listOfProcesses.get(k).getBurstTime()
+			/*System.out.println("PROCESS ARRIVAL BURST FINISHING TURNAROUND WAITING ");
+			for (int k = 0;k < processList.size();k++) {
+				System.out.print("P"+k+"\t"+processList.get(k).getArrivalTime()+"\t"+processList.get(k).getBurstTime()
 						+ "\t" + finishTime[k] + "\t" + turnaroundTime[k] + "\t   " + waitingTime[k]);
 				System.out.print("\n");
 			
@@ -88,9 +90,9 @@ public class NonPreemptiveSJF{
 			}
 			
 			//Calculate Average Waiting Time
-			avgWT = totalWT/process;
+			avgWT = totalWT/processList.size();
 			//Calculate Average Turnaround Time
-			avgTT = totalTT/process;
-			System.out.println("\nAverage Waiting Time : " + avgWT + "\nAverage Turnaround Time: " + avgTT);
+			avgTT = totalTT/processList.size();
+			System.out.println("\nAverage Waiting Time : " + avgWT + "\nAverage Turnaround Time: " + avgTT);*/
 	}
 } 

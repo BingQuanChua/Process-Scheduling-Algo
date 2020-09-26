@@ -1,6 +1,7 @@
 package os;
 
-public class ProcessInput
+
+public class Process
 {
     private String processName;
     private int arrivalTime;
@@ -13,7 +14,7 @@ public class ProcessInput
     /********** **********
      * Constructor
      ********** **********/
-    private ProcessInput(String processName, int arrivalTime, int burstTime, int priorityLevel, int waitingTime, int turnaroundTime)
+    private Process(String processName, int arrivalTime, int burstTime, int priorityLevel, int waitingTime, int turnaroundTime)
     {
         this.processName = processName;
         this.arrivalTime = arrivalTime;
@@ -24,13 +25,13 @@ public class ProcessInput
     }
     
     // Priority non-preemptive or priority preemptive
-    public ProcessInput(String processName, int arrivalTime, int burstTime, int priorityLevel)
+    public Process(String processName, int arrivalTime, int burstTime, int priorityLevel)
     {
         this(processName, arrivalTime, burstTime, priorityLevel, 0, 0);
     }
     
     // FCFS or SJF
-    public ProcessInput(String processName, int arrivalTime, int burstTime)
+    public Process(String processName, int arrivalTime, int burstTime)
     {
         this(processName, arrivalTime, burstTime, 0, 0, 0);
     }
