@@ -2,6 +2,7 @@ package os;
 
 import java.util.List;
 
+//Only display result in console
 public class DisplayResult {
 	
 	DisplayResult(CPUScheduler scheduler){

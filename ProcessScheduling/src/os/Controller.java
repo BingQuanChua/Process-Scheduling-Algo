@@ -90,7 +90,7 @@ public class Controller {
         		case 1: scheduler = new RoundRobin();
         				roundRobinAlgorithm();
         				break;
-        		case 2: // NP SJF
+        		case 2: scheduler = new NonPreemptiveSJF();
         				break;
         		case 3: scheduler = new PriorityPreemptive();        				
         				break;      
