@@ -1,6 +1,5 @@
 package os;
 
-
 public class ProcessInput
 {
     private String processName;

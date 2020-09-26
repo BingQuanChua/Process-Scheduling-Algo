@@ -9,6 +9,7 @@ public class Controller {
     private View view;
     private int numberOfProcesses = 3;
     private CPUScheduler scheduler;
+    private DisplayResult displayResult;
 
     public Controller(View view) {
         this.view = view;
@@ -30,23 +31,30 @@ public class Controller {
         		numberOfProcesses++;
         		view.getTableModel().addRow(new String[] {"P"+numberOfProcesses, "", "", "", "", "", ""});
         	}
-        }
+        	System.out.println("Add Button Pressed: total row " + numberOfProcesses);
+        }   
     };
     
     ActionListener removeButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	System.out.print("Remove Button Pressed: ");
         	view.getTable().clearSelection();
         	if (numberOfProcesses > 3) {
         		numberOfProcesses--;
         		view.getTableModel().removeRow(numberOfProcesses);
+        		System.out.println("row " + numberOfProcesses +" deleted");
+        	} else {
+        		System.out.println("minimum row reached");
         	}
+        	
         }
     };
 
     ActionListener resetButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	System.out.println("Reset Button Pressed");
         	view.getTable().clearSelection();
         	// clearing the table
         	for (int i = 0; i < numberOfProcesses; i++) {
@@ -54,10 +62,15 @@ public class Controller {
         			view.getTableModel().setValueAt("", i, j);
         		}
         	}
+        	
+        	// clearing the table row
+        	while (numberOfProcesses > 3) {
+        		numberOfProcesses--;
+        		view.getTableModel().removeRow(numberOfProcesses);
+        	}
         
-            // remember to clear panel too
-
-            view.getAvgTATTxtField().setText("");
+            // clearing summary panel
+        	view.getAvgTATTxtField().setText("");
             view.getTotalTATTxtField().setText("");
             view.getAvgWTTxtField().setText("");
             view.getTotalWTTxtField().setText("");
@@ -67,30 +80,42 @@ public class Controller {
     ActionListener calculateButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	System.out.println("Calculate Button Pressed");
         	int choice = view.getComboBox().getSelectedIndex();
-        	System.out.println(choice);
+        	System.out.println("Choice: " + choice);
         	switch(choice) {
-        		case 0: // not selected algorithm
+        		case 0: // no selected algorithm
         				JOptionPane.showMessageDialog(view,"Please select an algorithm!");  
-        				System.out.println("1");
         				break;
-        		case 1: // RR
+        		case 1: scheduler = new RoundRobin();
         				roundRobinAlgorithm();
         				break;
         		case 2: // NP SJF
         				break;
-        		case 3: // PP
-        				break;        	
+        		case 3: scheduler = new PriorityPreemptive();        				
+        				break;      
         				
-        		// need to read from the table
+        		
         	}
+        	// Calculate the process
+        	readDataFromTable(scheduler);
+			scheduler.process();
+			writeDataToTable(scheduler);
+			displayResult = new DisplayResult(scheduler);
+			view.setGanttChart(scheduler.getProcessOutputList());
         }
     };
     
     public void readDataFromTable(CPUScheduler scheduler) {
+    	String errorMessage = "";
     	try {
+    		System.out.println("\n********************\n"
+							 + "readDataFromTable"
+							 + "\n********************");
+    		System.out.println("Process\tAT\tBT\tPriority");
     		// reading AT, BT and Priority
     		for (int i = 0; i < numberOfProcesses; i++) {
+    			errorMessage = ("Invalid data at process-" + (i + 1));
     			int at = Integer.parseInt((String) view.getTableModel().getValueAt(i, 1));
     			int bt = Integer.parseInt((String) view.getTableModel().getValueAt(i, 2));
     			int priority;
@@ -100,11 +125,12 @@ public class Controller {
     			else {
     				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
     			}
+    			
     			scheduler.add(new ProcessInput("P"+(i+1), at, bt, priority));
-    			// System.out.println("at: " + at + " bt: " + bt + " pt: " + priority);
+    			System.out.println("P"+(i+1) + "\t" + at + "\t" + bt + "\t" + priority);
 	    	}
     	} catch(Exception ex) {
-    		JOptionPane.showMessageDialog(view,"Table contains non-integer!");  
+    		JOptionPane.showMessageDialog(view, errorMessage);  
     	}
 	    	
     }
@@ -131,12 +157,9 @@ public class Controller {
 			int quantum = Integer.parseInt(q);
 			scheduler = new RoundRobin();
 			scheduler.setTimeQuantum(quantum);
-			readDataFromTable(scheduler);
-			scheduler.process();
-			writeDataToTable(scheduler);
 			
 		} catch(Exception ex) {
-			JOptionPane.showMessageDialog(view,"Please enter an integer!");  
+			JOptionPane.showMessageDialog(view,"Invalid Time Quantum\nProceed with Default Quantum: 1");  
 		}
     }
 }

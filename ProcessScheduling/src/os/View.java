@@ -2,6 +2,7 @@ package os;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JComboBox;
 
@@ -33,7 +36,8 @@ public class View extends JFrame {
 	private DefaultTableModel tableModel;
 	private final String[] columnNames = {"Process", "Arrival Time", "Burst Time", "Priority", "Finish Time", "WT", "TAT"};
 	private String[][] data = {{"P1", "", "", "", "", "", ""}, {"P2", "", "", "", "", "", ""}, {"P3", "", "", "", "", "", ""}};
-	private JPanel ganttChartPanel;
+	private JPanel ganttChartRootPanel;
+	private GanttChart ganttChartPanel;
 	private JTextField avgTATTxtField;
 	private JTextField totalTATTxtField;
 	private JTextField avgWTTxtField;
@@ -119,10 +123,13 @@ public class View extends JFrame {
 		separator.setBounds(35, 370, 705, 3);
 		contentPane.add(separator);
 		
-		ganttChartPanel = new JPanel();
+		ganttChartRootPanel = new JPanel(new BorderLayout());
+		ganttChartRootPanel.setBackground(Color.WHITE);
+		ganttChartRootPanel.setBounds(40, 380, 695, 150);
+		ganttChartPanel = new GanttChart();
 		ganttChartPanel.setBackground(Color.WHITE);
-		ganttChartPanel.setBounds(40, 380, 695, 150);
-		contentPane.add(ganttChartPanel);
+		ganttChartRootPanel.add(ganttChartPanel, BorderLayout.CENTER);
+		contentPane.add(ganttChartRootPanel);
 		
 		// calculation summary creation
 		
@@ -202,7 +209,15 @@ public class View extends JFrame {
 	}
 	
 	public JPanel getGanttChartPanel() {
+		return ganttChartRootPanel;
+	}
+	
+	public GanttChart getGanttChart() {
 		return ganttChartPanel;
+	}
+	
+	public void setGanttChart(List<ProcessOutput> output) {
+		ganttChartPanel.setTimeline(output);;
 	}
 	
 	public JTextField getAvgTATTxtField() {
