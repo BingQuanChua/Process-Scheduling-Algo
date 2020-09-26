@@ -1,8 +1,7 @@
 package os;
 
 /*
-
- 	Run this class for Round Robin Scheduling
+ 	Run this class for Round Robin Scheduling 
  	Prompts quantum, AT, BT and priority of processes
  	To-dos: exception handling, restrictions (havent do because this might be useful for midterm :P)
 */
