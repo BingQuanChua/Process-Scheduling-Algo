@@ -59,8 +59,6 @@ public class NonPreemptiveSJF extends CPUScheduler{
 				
 				else {
 					finishTime[current] = starting + processList.get(current).getBurstTime();//calculate finishTime
-					turnaroundTime[current] = finishTime[current] - processList.get(current).getArrivalTime();//calculate Turnaround Time
-					waitingTime[current] = turnaroundTime[current] - processList.get(current).getBurstTime();//calculate Waiting Time
 					flag[current] = 1;
 					total++;
 					Process p = processList.get(current);
@@ -68,31 +66,20 @@ public class NonPreemptiveSJF extends CPUScheduler{
 					starting += processList.get(current).getBurstTime();
 				}
 			}
-			// rearrange the timeline
-			for (int i = 0; i < processList.size(); i++)
-	        {
-				Process p = processList.get(i);
-	            if (processList.get(i).getProcessName().equals(p.getProcessName()))
-	            {
-	            	processList.remove(i);
-	                break;
-	            }
-	        }
-			//display summary
-			/*System.out.println("PROCESS ARRIVAL BURST FINISHING TURNAROUND WAITING ");
-			for (int k = 0;k < processList.size();k++) {
-				System.out.print("P"+k+"\t"+processList.get(k).getArrivalTime()+"\t"+processList.get(k).getBurstTime()
-						+ "\t" + finishTime[k] + "\t" + turnaroundTime[k] + "\t   " + waitingTime[k]);
-				System.out.print("\n");
 			
-				totalWT += waitingTime[k];
-				totalTT += turnaroundTime[k];
-			}
+			//Calculate turnaround time and waiting time
+			for (Process process : this.getProcessInputList()) {
+				for (int i = this.getProcessOutputList().size()-1; i >= 0; i--) { // looping from the back
+					if (process.getProcessName().equals(this.getProcessOutputList().get(i).getProcessName())) {
+						int ft = this.getProcessOutputList().get(i).getFinishTime();
+						process.setFinishTime(ft);
+						// setting TAT and WT 
+						process.setTurnaroundTime(ft-process.getArrivalTime());
+						process.setWaitingTime(process.getTurnaroundTime()-process.getBurstTime());
+						break;
+					}
+				}
+			} 
 			
-			//Calculate Average Waiting Time
-			avgWT = totalWT/processList.size();
-			//Calculate Average Turnaround Time
-			avgTT = totalTT/processList.size();
-			System.out.println("\nAverage Waiting Time : " + avgWT + "\nAverage Turnaround Time: " + avgTT);*/
 	}
 } 

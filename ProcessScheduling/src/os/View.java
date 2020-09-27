@@ -78,7 +78,7 @@ public class View extends JFrame {
 		algoPanel.setBounds(40, 40, 150, 40);
 		contentPane.add(algoPanel);
 		setSize(new Dimension(800, 800));
-
+		setResizable(false);
 		comboBox = new JComboBox<String>(options);
 		comboBox.setBounds(188, 40, 545, 40);
 		contentPane.add(comboBox);
@@ -135,12 +135,12 @@ public class View extends JFrame {
 		
 		// calculation summary creation
 		
-		JLabel avgTATPanel = new JLabel("Average Turn Around Time :");
+		JLabel avgTATPanel = new JLabel("Average Turnaround Time :");
 		avgTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		avgTATPanel.setBounds(40, 550, 175, 40);
 		contentPane.add(avgTATPanel);
 		
-		JLabel totalTATPanel = new JLabel("Total Turn Around Time :");
+		JLabel totalTATPanel = new JLabel("Total Turnaround Time :");
 		totalTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalTATPanel.setBounds(40, 600, 175, 40);
 		contentPane.add(totalTATPanel);
