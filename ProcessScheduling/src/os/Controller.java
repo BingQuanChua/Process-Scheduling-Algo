@@ -72,6 +72,11 @@ public class Controller {
         		numberOfProcesses--;
         		view.getTableModel().removeRow(numberOfProcesses);
         	}
+        	
+        	// clear gantt chart panel
+        	view.getGanttChartPanel().removeAll();
+        	view.getGanttChartPanel().revalidate();
+        	view.getGanttChartPanel().repaint();
         
             // clearing summary panel
         	view.getAvgTATTxtField().setText("");
