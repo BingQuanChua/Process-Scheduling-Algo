@@ -76,10 +76,6 @@ public class Controller {
         	
         	// clear gantt chart panel
         	view.clearGanttChartPanel();
-        	//view.getGanttChartRootPanel().removeAll();
-        	//view.getGanttChartPanel().repaint();
-        	
-        	//view.setGanttChart(null);
         
             // clearing summary panel
         	view.getAvgTATTxtField().setText("");

@@ -42,16 +42,16 @@ public class NonPreemptiveSJF extends CPUScheduler{
 				int min = 500; 
 		
 				try {
-				for (int j = 0; j < processList.size(); j++) {
-					if((processList.get(j).getArrivalTime() <= starting) && (processList.get(j).getBurstTime() < min) && (flag[j]==0)) {
-						min = processList.get(j).getBurstTime();
-						current = j;
+					for (int j = 0; j < processList.size(); j++) {
+						if((processList.get(j).getArrivalTime() <= starting) && (processList.get(j).getBurstTime() < min) && (flag[j]==0)) {
+							min = processList.get(j).getBurstTime();
+							current = j;
+						}
 					}
 				}
-				}
 				catch(IndexOutOfBoundsException e) {
-				System.out.println("ERROR");
-			}
+					System.out.println("ERROR");
+				}
 				
 				//current 
 				if(current == processList.size())
