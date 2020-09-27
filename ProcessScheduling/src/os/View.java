@@ -72,6 +72,7 @@ public class View extends JFrame {
 		setContentPane(contentPane);
 		initComponents();
 		setIcon();
+		this.setSize(new Dimension(800, 730));
 		this.setResizable(false);
 		this.setVisible(true);
 	}
@@ -84,8 +85,7 @@ public class View extends JFrame {
 		algoPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		algoPanel.setBounds(40, 40, 150, 40);
 		contentPane.add(algoPanel);
-		setSize(new Dimension(800, 800));
-		setResizable(false);
+
 		comboBox = new JComboBox<String>(options);
 		comboBox.setBounds(188, 40, 545, 40);
 		contentPane.add(comboBox);
