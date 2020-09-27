@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 
 public class GanttChart extends JPanel {
 
-	private List<ProcessOutput> timeline;
+    private static final long serialVersionUID = 1L;
+    private List<ProcessOutput> timeline;
     
     @Override
     protected void paintComponent(Graphics g)

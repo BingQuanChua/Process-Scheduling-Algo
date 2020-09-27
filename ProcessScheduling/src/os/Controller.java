@@ -94,8 +94,6 @@ public class Controller {
         				break;
         		case 3: scheduler = new PriorityPreemptive();        				
         				break;      
-        				
-        		
         	}
         	// Calculate the process
         	readDataFromTable(scheduler);
@@ -115,12 +113,13 @@ public class Controller {
     		System.out.println("Process\tAT\tBT\tPriority");
     		// reading AT, BT and Priority
     		for (int i = 0; i < numberOfProcesses; i++) {
-    			errorMessage = ("Invalid data at process-" + (i + 1));
+    			errorMessage = ("Invalid data at P" + (i + 1));
     			int at = Integer.parseInt((String) view.getTableModel().getValueAt(i, 1));
     			int bt = Integer.parseInt((String) view.getTableModel().getValueAt(i, 2));
     			int priority;
     			if (scheduler instanceof RoundRobin) {
-    				priority = 1; // in case user did not enter
+					priority = 1; // in case user did not enter
+					view.getTableModel().setValueAt("1", i, 3);
     			} 
     			else {
     				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
@@ -138,10 +137,10 @@ public class Controller {
     public void writeDataToTable(CPUScheduler scheduler) {
     	// writing FT, WT, TAT to table
     	for (int i = 0; i < numberOfProcesses; i++) {
-    		// view.getTableModel().setValueAt(aValue, row, column);
+			view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getFinishTime(), i, 4);
+			view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getWaitingTime(), i, 5);
+			view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getTurnaroundTime(), i, 6);
     	}
-    	
-    	// drawing gantt chart
     	
     	// writing summary
     	view.getAvgTATTxtField().setText(scheduler.getAverageTurnAroundTime()+"");

@@ -122,14 +122,16 @@ public class View extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(35, 370, 705, 3);
 		contentPane.add(separator);
-		
+	
 		ganttChartRootPanel = new JPanel(new BorderLayout());
 		ganttChartRootPanel.setBackground(Color.WHITE);
 		ganttChartRootPanel.setBounds(40, 380, 695, 150);
 		ganttChartPanel = new GanttChart();
 		ganttChartPanel.setBackground(Color.WHITE);
 		ganttChartRootPanel.add(ganttChartPanel, BorderLayout.CENTER);
-		contentPane.add(ganttChartRootPanel);
+		JScrollPane scrollPane = new JScrollPane(ganttChartRootPanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(40, 380, 695, 150);
+		contentPane.add(scrollPane);
 		
 		// calculation summary creation
 		
