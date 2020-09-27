@@ -27,24 +27,25 @@ public class GanttChart extends JPanel {
             	ProcessOutput event = processOutputList.get(i);
             	int width = 30 * (event.getFinishTime() - event.getStartTime() - 1);
                 int locationX = 30 * (i + 1) + previousWidth;
-                int y = 40;
+                int locationY = 40;
                 
-                g.drawRect(locationX, y, 30 + width, 30);
+                g.drawRect(locationX, locationY, 30 + width, 30);
                 g.setFont(new Font("Segoe UI", Font.BOLD, 13));
-                g.drawString(event.getProcessName(), locationX + 10, y + 20);
+                g.drawString(event.getProcessName(), locationX + 10, locationY + 20);
                 g.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-                g.drawString(Integer.toString(event.getStartTime()), locationX - 5, y + 45);
+                g.drawString(Integer.toString(event.getStartTime()), locationX - 5, locationY + 45);
                 
                 if (i == processOutputList.size() - 1)
                 {
-                    g.drawString(Integer.toString(event.getFinishTime()), locationX + width + 27, y + 45);
+                    g.drawString(Integer.toString(event.getFinishTime()), locationX + width + 27, locationY + 45);
+                } 
+                else {
+                	previousWidth += width;
                 }
-
-                previousWidth += width;
             }
         } else {       
             g.setColor(Color.WHITE);
-            g.fillOval(0, 0, 600, 200);
+            g.fillRect(0, 0, 600, 200);
         }
     }
     
