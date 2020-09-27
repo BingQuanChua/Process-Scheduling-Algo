@@ -30,11 +30,13 @@ public abstract class CPUScheduler {
 	/********** **********
 	 * Getter
 	 ********** **********/
+	// return time quantum
 	public int getTimeQuantum()
 	{
 		return timeQuantum;
 	}
 	
+	// return total waiting time
 	public int getTotalWaitingTime() 
 	{
 		int total = 0;
@@ -47,6 +49,7 @@ public abstract class CPUScheduler {
 		return total;
 	}
 	
+	// return total turnaround time
 	public int getTotalTurnAroundTime() 
 	{
 		int total = 0;
@@ -58,7 +61,8 @@ public abstract class CPUScheduler {
 		
 		return total;
 	}
-
+	
+	// return average waiting time
 	public double getAverageWaitingTime()
 	{
 		double avg = 0.0;
@@ -70,7 +74,8 @@ public abstract class CPUScheduler {
 
 		return avg / processInputList.size();
 	}
-
+	
+	// return average turnaround time
 	public double getAverageTurnAroundTime()
 	{
 		double avg = 0.0;
@@ -82,7 +87,7 @@ public abstract class CPUScheduler {
 
 		return avg / processInputList.size();
 	}
-
+	
 	public ProcessOutput getProcessOutput(Process processInput)
 	{
 		for (ProcessOutput processOutput : processOutputList)

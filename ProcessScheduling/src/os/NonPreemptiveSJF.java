@@ -64,19 +64,18 @@ public class NonPreemptiveSJF extends CPUScheduler{
 				}
 			}
 			
-			//Calculate turnaround time and waiting time
+			//calculate turnaround time and waiting time
 			for (Process process : this.getProcessInputList()) {
 				for (int i = this.getProcessOutputList().size()-1; i >= 0; i--) { // looping from the back
 					if (process.getProcessName().equals(this.getProcessOutputList().get(i).getProcessName())) {
 						int ft = this.getProcessOutputList().get(i).getFinishTime();
 						process.setFinishTime(ft);
-						// setting TAT and WT 
+						//set turnaround time and waiting time 
 						process.setTurnaroundTime(ft-process.getArrivalTime());
 						process.setWaitingTime(process.getTurnaroundTime()-process.getBurstTime());
 						break;
 					}
 				}
-			} 
-			
+			} 	
 	}
 } 

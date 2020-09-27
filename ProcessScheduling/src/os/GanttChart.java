@@ -62,6 +62,7 @@ public class GanttChart extends JPanel {
 		revalidate();
     }
     
+    // clear the gantt chart
     public void clearGanttChart()
     {
         this.clearPane = false;

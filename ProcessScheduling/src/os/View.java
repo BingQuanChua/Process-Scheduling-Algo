@@ -20,6 +20,7 @@ import javax.swing.JTable;
 
 import java.awt.Color;
 import javax.swing.JComboBox;
+import java.awt.Font;
 
 public class View extends JFrame {
 
@@ -50,6 +51,7 @@ public class View extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(250, 240, 230));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
@@ -65,6 +67,7 @@ public class View extends JFrame {
 		// algorithm selection creation
 		
 		JLabel algoPanel = new JLabel("Algorithm : ");
+		algoPanel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		algoPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		algoPanel.setBounds(40, 40, 150, 40);
 		contentPane.add(algoPanel);
@@ -85,25 +88,33 @@ public class View extends JFrame {
 		};
 		table = new JTable(tableModel);
 		tablePanel = new JScrollPane(table);
-		tablePanel.setBackground(Color.WHITE);
+		tablePanel.setBackground(Color.LIGHT_GRAY);
 		tablePanel.setBounds(40, 100, 695, 190);
 		contentPane.add(tablePanel);
 		
 		// controls creation
-		
 		addButton = new JButton("Add");
+		addButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		addButton.setBackground(new Color(255, 204, 153));
 		addButton.setBounds(219, 310, 120, 40);
 		contentPane.add(addButton);
 		
 		removeButton = new JButton("Remove");
+		removeButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		removeButton.setForeground(new Color(0, 0, 0));
+		removeButton.setBackground(new Color(255, 204, 153));
 		removeButton.setBounds(351, 310, 120, 40);
 		contentPane.add(removeButton);
 		
 		resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		resetButton.setBackground(new Color(255, 204, 153));
 		resetButton.setBounds(483, 310, 120, 40);
 		contentPane.add(resetButton);
 		
 		calculateButton = new JButton("Calculate");
+		calculateButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		calculateButton.setBackground(new Color(255, 204, 153));
 		calculateButton.setBounds(615, 310, 120, 40);
 		contentPane.add(calculateButton);
 		
@@ -114,8 +125,9 @@ public class View extends JFrame {
 		contentPane.add(separator);
 		
 		JLabel gcLabel = new JLabel("Gantt Chart :");
+		gcLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		gcLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		gcLabel.setBounds(45, 390, 80, 20);
+		gcLabel.setBounds(45, 390, 107, 20);
 		contentPane.add(gcLabel);
 		
 		ganttChartPanel = new GanttChart();
@@ -127,51 +139,59 @@ public class View extends JFrame {
 		// calculation summary creation
 
 		JLabel totalWTLabel = new JLabel("Total Waiting Time :");
+		totalWTLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totalWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalWTLabel.setBounds(40, 590, 175, 40);
 		contentPane.add(totalWTLabel);
 
 		JLabel avgWTLabel = new JLabel("Average Waiting Time :");
+		avgWTLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		avgWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		avgWTLabel.setBounds(40, 640, 175, 40);
 		contentPane.add(avgWTLabel);
 
 		JLabel totalTATLabel = new JLabel("Total Turnaround Time :");
+		totalTATLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totalTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalTATLabel.setBounds(398, 590, 175, 40);
+		totalTATLabel.setBounds(389, 590, 188, 40);
 		contentPane.add(totalTATLabel);
 		
 		JLabel avgTATLabel = new JLabel("Average Turnaround Time :");
+		avgTATLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		avgTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgTATLabel.setBounds(398, 640, 175, 40);
+		avgTATLabel.setBounds(389, 640, 188, 40);
 		contentPane.add(avgTATLabel);
 		
+		//textfield for total waiting time
 		totalWTTxtField = new JTextField();
 		totalWTTxtField.setColumns(10);
-		totalWTTxtField.setBounds(227, 590, 150, 40);
+		totalWTTxtField.setBounds(219, 591, 150, 40);
 		totalWTTxtField.setEditable(false);
 		contentPane.add(totalWTTxtField);
-
+		
+		//textfield for average waiting time
 		avgWTTxtField = new JTextField();
 		avgWTTxtField.setColumns(10);
-		avgWTTxtField.setBounds(227, 640, 150, 40);
+		avgWTTxtField.setBounds(219, 641, 150, 40);
 		avgWTTxtField.setEditable(false);
 		contentPane.add(avgWTTxtField);
-
+		
+		//textfield for total turnaround time
 		totalTATTxtField = new JTextField();
 		totalTATTxtField.setColumns(10);
 		totalTATTxtField.setBounds(585, 590, 150, 40);
 		totalTATTxtField.setEditable(false);
 		contentPane.add(totalTATTxtField);
-
+		
+		//textfield for average turnaround time
 		avgTATTxtField = new JTextField();
 		avgTATTxtField.setColumns(10);
 		avgTATTxtField.setBounds(585, 640, 150, 40);
 		avgTATTxtField.setEditable(false);
-		contentPane.add(avgTATTxtField);
-		
+		contentPane.add(avgTATTxtField);	
 	}
 	
+	// set icon
 	private void setIcon() {
 		try {
 			icon = new ImageIcon(ImageIO.read(getClass().getResource("images/icon.png")));

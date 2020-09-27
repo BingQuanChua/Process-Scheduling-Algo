@@ -14,14 +14,16 @@ public class Controller {
         this.view = view;
         setButtonListener();
     }	
-
+    
+    // method for action listener
     private void setButtonListener() {
     	view.getAddButton().addActionListener(addButtonListener);
     	view.getRemoveButton().addActionListener(removeButtonListener);
         view.getResetButton().addActionListener(resetButtonListener);
         view.getCalculateButton().addActionListener(calculateButtonListener);
     }
-
+    
+    // add new process
     ActionListener addButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -38,6 +40,7 @@ public class Controller {
         }   
     };
     
+    // remove existing process
     ActionListener removeButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -54,7 +57,8 @@ public class Controller {
         	
         }
     };
-
+    
+    // clear all table and result
     ActionListener resetButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -84,6 +88,7 @@ public class Controller {
         }
     };
     
+    // generate the result
     ActionListener calculateButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -121,6 +126,7 @@ public class Controller {
         }
     };
     
+    // read all data from table
     public boolean readDataFromTable(CPUScheduler scheduler) {
     	String errorMessage = "";
     	try {
@@ -160,6 +166,7 @@ public class Controller {
     	return false;	
     }
     
+    // write all data to table
     public void writeDataToTable(CPUScheduler scheduler) {
     	// writing FT, WT, TAT to table
     	for (int i = 0; i < numberOfProcesses; i++) {

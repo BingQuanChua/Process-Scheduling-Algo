@@ -14,21 +14,25 @@ public class ProcessOutput {
         this.finishTime = finishTime;
     }
     
+    //return process name
     public String getProcessName()
     {
         return processName;
     }
     
+    //return starting time
     public int getStartTime()
     {
         return startTime;
     }
     
+    //return finish time
     public int getFinishTime()
     {
         return finishTime;
     }
     
+    //set finish time
     public void setFinishTime(int finishTime)
     {
         this.finishTime = finishTime;
