@@ -1,1 +1,4 @@
 /.metadata/
+ProcessScheduling/bin/*
+DisplayResult.java
+*.class
