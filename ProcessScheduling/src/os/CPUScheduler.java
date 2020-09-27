@@ -13,7 +13,7 @@ public abstract class CPUScheduler {
 	{
 		processInputList = new ArrayList<>();
 		processOutputList = new ArrayList<>();
-		timeQuantum = 1;
+		timeQuantum = 3;
 	}
 
 	public boolean add(Process inputprocessInput)

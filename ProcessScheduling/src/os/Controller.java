@@ -134,19 +134,15 @@ public class Controller {
     			int at = Integer.parseInt((String) view.getTableModel().getValueAt(i, 1));
     			int bt = Integer.parseInt((String) view.getTableModel().getValueAt(i, 2));
     			int priority;
-    			if (scheduler instanceof RoundRobin) {
-					priority = 1; // in case user did not enter
-					view.getTableModel().setValueAt("1", i, 3);
-    			} 
-    			else {
-    				if (scheduler instanceof NonPreemptiveSJF && (String) view.getTableModel().getValueAt(i, 3) == "") {
-    						priority = 1; // in case user did not enter
-    						view.getTableModel().setValueAt("1", i, 3);
-    				}
-    				else {
-	    				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
-	    			}
+    			
+    			if ((scheduler instanceof NonPreemptiveSJF || scheduler instanceof RoundRobin) && (String) view.getTableModel().getValueAt(i, 3) == "") {
+    					priority = 1; // in case user did not enter
+    					view.getTableModel().setValueAt("1", i, 3);
     			}
+    			else {
+	    			priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
+	    		}
+    			
     			
     			if(at < 0 || bt < 1 || priority < 0) {
     				System.out.println(errorMessage);
@@ -185,14 +181,14 @@ public class Controller {
     }
     
     public void roundRobinAlgorithm() {
-    	String q = JOptionPane.showInputDialog(view,"Enter Time Quantum");  
+    	String q = JOptionPane.showInputDialog(view,"Enter Time Quantum\n (default time quantum = 3)");  
 		try {
 			int quantum = Integer.parseInt(q);
 			scheduler = new RoundRobin();
 			scheduler.setTimeQuantum(quantum);
 			
 		} catch(Exception ex) {
-			JOptionPane.showMessageDialog(view,"Invalid Time Quantum\nProceed with Default Quantum: 1");  
+			JOptionPane.showMessageDialog(view,"Invalid Time Quantum!\nProceed with Time Quantum = 3");  
 		}
     }
 }
