@@ -29,9 +29,13 @@ public class Controller {
         	view.getTable().clearSelection();
         	if (numberOfProcesses < 10) {
         		numberOfProcesses++;
-        		view.getTableModel().addRow(new String[] {"P"+numberOfProcesses, "", "", "", "", "", ""});
-        	}
-        	System.out.println("Add Button Pressed: total row " + numberOfProcesses);
+				view.getTableModel().addRow(new String[] {"P"+numberOfProcesses, "", "", "", "", "", ""});
+				System.out.println("Add Button Pressed: total row " + numberOfProcesses);
+			}
+			else {
+				System.out.println("Maximum number of rows reached!");
+			}
+        	
         }   
     };
     
@@ -44,8 +48,9 @@ public class Controller {
         		numberOfProcesses--;
         		view.getTableModel().removeRow(numberOfProcesses);
         		System.out.println("row " + numberOfProcesses +" deleted");
-        	} else {
-        		System.out.println("minimum row reached");
+			} 
+			else {
+        		System.out.println("Minimum number of rows reached!");
         	}
         	
         }
@@ -123,12 +128,13 @@ public class Controller {
     		System.out.println("Process\tAT\tBT\tPriority");
     		// reading AT, BT and Priority
     		for (int i = 0; i < numberOfProcesses; i++) {
-    			errorMessage = ("Invalid data at process " + (i + 1));
+    			errorMessage = ("Invalid data at P" + (i + 1));
     			int at = Integer.parseInt((String) view.getTableModel().getValueAt(i, 1));
     			int bt = Integer.parseInt((String) view.getTableModel().getValueAt(i, 2));
     			int priority;
     			if (scheduler instanceof RoundRobin) {
-    				priority = 1; // in case user did not enter
+					priority = 1; // in case user did not enter
+					view.getTableModel().setValueAt("1", i, 3);
     			} 
     			else {
     				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
@@ -160,13 +166,12 @@ public class Controller {
     	
     	// Draw gantt chart
     	view.setGanttChart(scheduler.getProcessOutputList());
-    	
+
     	// writing summary
     	view.getAvgTATTxtField().setText(scheduler.getAverageTurnAroundTime()+"");
     	view.getTotalTATTxtField().setText(scheduler.getTotalTurnAroundTime()+"");
     	view.getAvgWTTxtField().setText(scheduler.getAverageWaitingTime()+"");
     	view.getTotalWTTxtField().setText(scheduler.getTotalWaitingTime()+"");
-    	
     }
     
     public void roundRobinAlgorithm() {

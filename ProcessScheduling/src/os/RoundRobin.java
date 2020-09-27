@@ -75,16 +75,27 @@ public class RoundRobin extends CPUScheduler{
         
         
         // rearrange the timeline
-        for (int i = this.getProcessOutputList().size() - 1; i > 0; i--)
-        {
+        for (int i = this.getProcessOutputList().size() - 1; i > 0; i--) {
             List<ProcessOutput> processOutputList = this.getProcessOutputList();
             
-            if (processOutputList.get(i - 1).getProcessName().equals(processOutputList.get(i).getProcessName()))
-            {
+            if (processOutputList.get(i - 1).getProcessName().equals(processOutputList.get(i).getProcessName())) {
                 processOutputList.get(i - 1).setFinishTime(processOutputList.get(i).getFinishTime());
                 processOutputList.remove(i);
             }
-        }
+		}
+		
+		// setting FT, TAT and WT for all the Process(es) in processInputList
+		for (Process process : this.getProcessInputList()) {
+			for (int i = this.getProcessOutputList().size()-1; i >= 0; i--) { // looping from the back
+				if (process.getProcessName().equals(this.getProcessOutputList().get(i).getProcessName())) {
+					process.setFinishTime(this.getProcessOutputList().get(i).getFinishTime());
+					// setting TAT and WT 
+					process.setTurnaroundTime(process.getFinishTime()-process.getArrivalTime());
+					process.setWaitingTime(process.getTurnaroundTime()-process.getBurstTime());
+					break;
+				}
+			}
+		} 
 	}
 	
 	public void checkArrivalTime() {
