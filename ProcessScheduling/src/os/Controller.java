@@ -9,7 +9,6 @@ public class Controller {
     private View view;
     private int numberOfProcesses = 3;
     private CPUScheduler scheduler;
-    private DisplayResult displayResult;
 
     public Controller(View view) {
         this.view = view;
@@ -29,9 +28,13 @@ public class Controller {
         	view.getTable().clearSelection();
         	if (numberOfProcesses < 10) {
         		numberOfProcesses++;
-        		view.getTableModel().addRow(new String[] {"P"+numberOfProcesses, "", "", "", "", "", ""});
-        	}
-        	System.out.println("Add Button Pressed: total row " + numberOfProcesses);
+				view.getTableModel().addRow(new String[] {"P"+numberOfProcesses, "", "", "", "", "", ""});
+				System.out.println("Add Button Pressed: total row " + numberOfProcesses);
+			}
+			else {
+				System.out.println("Maximum number of rows reached!");
+			}
+        	
         }   
     };
     
@@ -44,8 +47,9 @@ public class Controller {
         		numberOfProcesses--;
         		view.getTableModel().removeRow(numberOfProcesses);
         		System.out.println("row " + numberOfProcesses +" deleted");
-        	} else {
-        		System.out.println("minimum row reached");
+			} 
+			else {
+        		System.out.println("Minimum number of rows reached!");
         	}
         	
         }
@@ -99,7 +103,7 @@ public class Controller {
         	readDataFromTable(scheduler);
 			scheduler.process();
 			writeDataToTable(scheduler);
-			displayResult = new DisplayResult(scheduler);
+			new DisplayResult(scheduler);
 			view.setGanttChart(scheduler.getProcessOutputList());
         }
     };
@@ -147,7 +151,6 @@ public class Controller {
     	view.getTotalTATTxtField().setText(scheduler.getTotalTurnAroundTime()+"");
     	view.getAvgWTTxtField().setText(scheduler.getAverageWaitingTime()+"");
     	view.getTotalWTTxtField().setText(scheduler.getTotalWaitingTime()+"");
-    	
     }
     
     public void roundRobinAlgorithm() {

@@ -26,7 +26,6 @@ public class ProcessScheduling {
 		}
     	
         View view = new View();
-        view.setVisible(true);
         new Controller(view);
     }
 }
