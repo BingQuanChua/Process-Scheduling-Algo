@@ -225,7 +225,11 @@ public class View extends JFrame {
 	}
 	
 	public void setGanttChart(List<ProcessOutput> output) {
-		ganttChartPanel.setTimeline(output);
+		ganttChartPanel.setProcessOutputList(output);
+	}
+	
+	public void clearGanttChartPanel() {
+		ganttChartPanel.clearGanttChart();;
 	}
 	
 	public JTextField getAvgTATTxtField() {
