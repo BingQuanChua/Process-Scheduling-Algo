@@ -46,6 +46,9 @@ public class GanttChart extends JPanel {
         } else {       
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, 600, 200);
+            setPreferredSize(new Dimension(100, 195));
+		    repaint();
+		    revalidate();
         }
     }
     
@@ -53,7 +56,7 @@ public class GanttChart extends JPanel {
     {
         this.processOutputList = processOutputList;
         this.clearPane = true;
-        // each time box is 30 pixels width, spacing at front and back = 60
+        // each time box is 30 pixels wide, spacing at front and back = 60
 		setPreferredSize(new Dimension(processOutputList.get(processOutputList.size()-1).getFinishTime()*30 + 60, 195));
 		repaint();
 		revalidate();
