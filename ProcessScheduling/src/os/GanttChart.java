@@ -45,7 +45,7 @@ public class GanttChart extends JPanel {
             }
         } else {       
             g.setColor(Color.WHITE);
-            g.fillRect(0, 0, 600, 200);
+            g.fillRect(0, 0, 600, 150);
             setPreferredSize(new Dimension(100, 195));
 		    repaint();
 		    revalidate();
