@@ -2,6 +2,7 @@ package os;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -12,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -42,7 +45,8 @@ public class View extends JFrame {
 	private JTextField totalTATTxtField;
 	private JTextField avgWTTxtField;
 	private JTextField totalWTTxtField;
-
+	private ImageIcon icon;
+	
 	// launch the application, will delete later
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,9 +68,12 @@ public class View extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setContentPane(contentPane);
 		initComponents();
+		setIcon();
+		this.setResizable(false);
+		this.setVisible(true);
 	}
 	
 	private void initComponents() {
@@ -96,7 +103,7 @@ public class View extends JFrame {
 		table = new JTable(tableModel);
 		tablePanel = new JScrollPane(table);
 		tablePanel.setBackground(Color.WHITE);
-		tablePanel.setBounds(40, 100, 695, 190);	 //-60
+		tablePanel.setBounds(40, 100, 695, 190);
 		contentPane.add(tablePanel);
 		
 		// controls creation
@@ -117,7 +124,7 @@ public class View extends JFrame {
 		calculateButton.setBounds(615, 310, 120, 40);
 		contentPane.add(calculateButton);
 		
-		// gantt chart creation
+		// gantt chart panel creation
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(35, 370, 705, 3);
@@ -179,6 +186,15 @@ public class View extends JFrame {
 		totalWTTxtField.setEditable(false);
 		contentPane.add(totalWTTxtField);
 
+	}
+	
+	private void setIcon() {
+		try {
+			icon = new ImageIcon(ImageIO.read(getClass().getResource("images/icon.png")));
+		} catch (IOException ex) {
+			System.out.println("Image not found");
+		}
+		this.setIconImage(icon.getImage());
 	}
 	
 	public JComboBox<String> getComboBox() {

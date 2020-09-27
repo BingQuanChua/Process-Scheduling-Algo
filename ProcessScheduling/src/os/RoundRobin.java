@@ -84,14 +84,13 @@ public class RoundRobin extends CPUScheduler{
             }
 		}
 		
-		// setting FT for all the Process(es) in processInputList
+		// setting FT, TAT and WT for all the Process(es) in processInputList
 		for (Process process : this.getProcessInputList()) {
 			for (int i = this.getProcessOutputList().size()-1; i >= 0; i--) { // looping from the back
 				if (process.getProcessName().equals(this.getProcessOutputList().get(i).getProcessName())) {
-					int ft = this.getProcessOutputList().get(i).getFinishTime();
-					process.setFinishTime(ft);
+					process.setFinishTime(this.getProcessOutputList().get(i).getFinishTime());
 					// setting TAT and WT 
-					process.setTurnaroundTime(ft-process.getArrivalTime());
+					process.setTurnaroundTime(process.getFinishTime()-process.getArrivalTime());
 					process.setWaitingTime(process.getTurnaroundTime()-process.getBurstTime());
 					break;
 				}
