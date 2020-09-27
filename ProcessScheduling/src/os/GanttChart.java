@@ -1,5 +1,6 @@
 package os;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
@@ -36,7 +37,7 @@ public class GanttChart extends JPanel {
                 {
                     g.drawString(Integer.toString(event.getFinishTime()), locationX + width + 27, y + 45);
                 }
-                
+
                 previousWidth += width;
             }
 
@@ -46,6 +47,10 @@ public class GanttChart extends JPanel {
     public void setTimeline(List<ProcessOutput> timeline)
     {
         this.timeline = timeline;
-        repaint();
+        // each time box is 30 pixels width, spacing at front and back = 60
+		setPreferredSize(new Dimension(timeline.get(timeline.size()-1).getFinishTime()*30 + 60, 195));
+		repaint();
+		revalidate();
     }
+
 }
