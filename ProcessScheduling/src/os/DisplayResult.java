@@ -14,14 +14,15 @@ public class DisplayResult {
 		System.out.println("\n***************\n"
 						 + "DisplayResult"
 						 + "\n***************");
-		System.out.println("Process\tAT\tBT\tWT\tTAT");
+		System.out.println("Process\tAT\tBT\tPrior\tWT\tTAT");
 
 		for (Process process : scheduler.getProcessInputList())
 		{
-			System.out.println(process.getProcessName() + "\t" + process.getArrivalTime() + "\t" + process.getBurstTime() + "\t" + process.getWaitingTime() + "\t" + process.getTurnaroundTime());
+			System.out.println(process.getProcessName() + "\t" + process.getArrivalTime() + "\t" + process.getBurstTime() + "\t" + 
+							   process.getPriorityLevel() + "\t" + process.getWaitingTime() + "\t" + process.getTurnaroundTime());
 		}
 
-		System.out.println();
+		System.out.println("\nMini Gantt Chart");
 
 		for (int i = 0; i < scheduler.getProcessOutputList().size(); i++)
 		{

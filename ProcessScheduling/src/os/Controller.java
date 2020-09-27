@@ -147,7 +147,7 @@ public class Controller {
     				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
     			}
   
-    			if(at < 0 || bt < 1 || priority < 1) {
+    			if(at < 0 || bt < 1 || priority < 0) {
     				System.out.println(errorMessage);
     				throw new Exception();
     			}
@@ -166,9 +166,11 @@ public class Controller {
     public void writeDataToTable(CPUScheduler scheduler) {
     	// writing FT, WT, TAT to table
     	for (int i = 0; i < numberOfProcesses; i++) {
-    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getFinishTime(), i, 4);
-    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getWaitingTime(), i, 5);
-    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getTurnaroundTime(), i, 6);
+    		char processNum = scheduler.getProcessInputList().get(i).getProcessName().charAt(1);
+    		int index = ( Integer.parseInt(String.valueOf(processNum)) - 1 );
+    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getFinishTime(), index, 4);
+    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getWaitingTime(), index, 5);
+    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getTurnaroundTime(), index, 6);
     	}
     	
     	// Draw gantt chart
