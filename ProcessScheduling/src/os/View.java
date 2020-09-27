@@ -19,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JComboBox;
 

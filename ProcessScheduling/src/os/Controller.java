@@ -119,7 +119,7 @@ public class Controller {
 	        	displayResult = new DisplayResult(scheduler);
 	        	
         	} catch (Exception ex) {
-        		System.out.println("Process Fail Please Try Again");
+        		System.out.println("Process Fail. Please Try Again");
         	}
         }
     };
