@@ -11,7 +11,6 @@ public class NonPreemptiveSJF extends CPUScheduler{
 		processList = new ArrayList<Process>();
 		//declare the variables
 		int starting = 0, total = 0;
-	    double totalWT = 0, totalTT = 0, avgWT = 0, avgTT = 0;
 	    
 	    // sorting according to Arrival Time
 	    Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
@@ -34,8 +33,6 @@ public class NonPreemptiveSJF extends CPUScheduler{
 		}
 			int flag[] = new int[processList.size()];//checks if process is completed or not
 			int finishTime[] = new int[processList.size()];
-			int waitingTime[] = new int[processList.size()];
-			int turnaroundTime[] = new int[processList.size()];
 			
 			while(total != processList.size()) {
 				int current = processList.size(); //current process

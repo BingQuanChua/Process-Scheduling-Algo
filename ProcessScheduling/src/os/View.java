@@ -1,7 +1,6 @@
 package os;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,20 +43,6 @@ public class View extends JFrame {
 	private JTextField avgWTTxtField;
 	private JTextField totalWTTxtField;
 	private ImageIcon icon;
-	
-	// launch the application, will delete later
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					View frame = new View();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	// create the frame
 	public View() {
@@ -70,7 +55,7 @@ public class View extends JFrame {
 		setContentPane(contentPane);
 		initComponents();
 		setIcon();
-		this.setSize(new Dimension(800, 730));
+		this.setSize(new Dimension(800, 770));
 		this.setResizable(false);
 		this.setVisible(true);
 	}
@@ -127,56 +112,61 @@ public class View extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(35, 370, 705, 3);
 		contentPane.add(separator);
-	
+		
+		JLabel gcLabel = new JLabel("Gantt Chart :");
+		gcLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		gcLabel.setBounds(45, 390, 80, 20);
+		contentPane.add(gcLabel);
+		
 		ganttChartPanel = new GanttChart();
 		ganttChartPanel.setBackground(Color.WHITE);
 		JScrollPane scrollPane = new JScrollPane(ganttChartPanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(40, 380, 695, 150);
+		scrollPane.setBounds(40, 420, 695, 150); // +=40
 		contentPane.add(scrollPane);
 		
 		// calculation summary creation
 
-		JLabel totalWTPanel = new JLabel("Total Waiting Time :");
-		totalWTPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalWTPanel.setBounds(40, 550, 175, 40);
-		contentPane.add(totalWTPanel);
+		JLabel totalWTLabel = new JLabel("Total Waiting Time :");
+		totalWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		totalWTLabel.setBounds(40, 590, 175, 40);
+		contentPane.add(totalWTLabel);
 
-		JLabel avgWTPanel = new JLabel("Average Waiting Time :");
-		avgWTPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgWTPanel.setBounds(40, 600, 175, 40);
-		contentPane.add(avgWTPanel);
+		JLabel avgWTLabel = new JLabel("Average Waiting Time :");
+		avgWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		avgWTLabel.setBounds(40, 640, 175, 40);
+		contentPane.add(avgWTLabel);
 
-		JLabel totalTATPanel = new JLabel("Total Turnaround Time :");
-		totalTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalTATPanel.setBounds(398, 550, 175, 40);
-		contentPane.add(totalTATPanel);
+		JLabel totalTATLabel = new JLabel("Total Turnaround Time :");
+		totalTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		totalTATLabel.setBounds(398, 590, 175, 40);
+		contentPane.add(totalTATLabel);
 		
-		JLabel avgTATPanel = new JLabel("Average Turnaround Time :");
-		avgTATPanel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgTATPanel.setBounds(398, 600, 175, 40);
-		contentPane.add(avgTATPanel);
+		JLabel avgTATLabel = new JLabel("Average Turnaround Time :");
+		avgTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		avgTATLabel.setBounds(398, 640, 175, 40);
+		contentPane.add(avgTATLabel);
 		
 		totalWTTxtField = new JTextField();
 		totalWTTxtField.setColumns(10);
-		totalWTTxtField.setBounds(227, 550, 150, 40);
+		totalWTTxtField.setBounds(227, 590, 150, 40);
 		totalWTTxtField.setEditable(false);
 		contentPane.add(totalWTTxtField);
 
 		avgWTTxtField = new JTextField();
 		avgWTTxtField.setColumns(10);
-		avgWTTxtField.setBounds(227, 600, 150, 40);
+		avgWTTxtField.setBounds(227, 640, 150, 40);
 		avgWTTxtField.setEditable(false);
 		contentPane.add(avgWTTxtField);
 
 		totalTATTxtField = new JTextField();
 		totalTATTxtField.setColumns(10);
-		totalTATTxtField.setBounds(585, 550, 150, 40);
+		totalTATTxtField.setBounds(585, 590, 150, 40);
 		totalTATTxtField.setEditable(false);
 		contentPane.add(totalTATTxtField);
 
 		avgTATTxtField = new JTextField();
 		avgTATTxtField.setColumns(10);
-		avgTATTxtField.setBounds(585, 600, 150, 40);
+		avgTATTxtField.setBounds(585, 640, 150, 40);
 		avgTATTxtField.setEditable(false);
 		contentPane.add(avgTATTxtField);
 		

@@ -9,7 +9,6 @@ public class Controller {
     private View view;
     private int numberOfProcesses = 3;
     private CPUScheduler scheduler;
-    private DisplayResult displayResult;
 
     public Controller(View view) {
         this.view = view;
@@ -69,10 +68,10 @@ public class Controller {
         	}
         	
         	// clearing the table row
-        	while (numberOfProcesses > 3) {
-        		numberOfProcesses--;
-        		view.getTableModel().removeRow(numberOfProcesses);
-        	}
+			/*
+			 * while (numberOfProcesses > 3) { numberOfProcesses--;
+			 * view.getTableModel().removeRow(numberOfProcesses); }
+			 */
         	
         	// clear gantt chart panel
         	view.clearGanttChartPanel();
@@ -114,7 +113,7 @@ public class Controller {
 	        		throw new Exception();
 	        	scheduler.process();
 	        	writeDataToTable(scheduler);
-	        	displayResult = new DisplayResult(scheduler);
+	        	new DisplayResult(scheduler);
 	        	
         	} catch (Exception ex) {
         		System.out.println("Process Fail. Please Try Again");
@@ -131,7 +130,7 @@ public class Controller {
     		System.out.println("Process\tAT\tBT\tPriority");
     		// reading AT, BT and Priority
     		for (int i = 0; i < numberOfProcesses; i++) {
-    			errorMessage = ("Invalid data at P" + (i + 1));
+    			errorMessage = ("Invalid data input at P" + (i + 1));
     			int at = Integer.parseInt((String) view.getTableModel().getValueAt(i, 1));
     			int bt = Integer.parseInt((String) view.getTableModel().getValueAt(i, 2));
     			int priority;
@@ -140,9 +139,15 @@ public class Controller {
 					view.getTableModel().setValueAt("1", i, 3);
     			} 
     			else {
-    				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
+    				if (scheduler instanceof NonPreemptiveSJF && (String) view.getTableModel().getValueAt(i, 3) == "") {
+    						priority = 1; // in case user did not enter
+    						view.getTableModel().setValueAt("1", i, 3);
+    				}
+    				else {
+	    				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
+	    			}
     			}
-  
+    			
     			if(at < 0 || bt < 1 || priority < 0) {
     				System.out.println(errorMessage);
     				throw new Exception();
