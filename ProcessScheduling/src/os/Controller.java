@@ -9,6 +9,7 @@ public class Controller {
     private View view;
     private int numberOfProcesses = 3;
     private CPUScheduler scheduler;
+    private DisplayResult displayResult;
 
     public Controller(View view) {
         this.view = view;
@@ -89,31 +90,41 @@ public class Controller {
     ActionListener calculateButtonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+        	
         	System.out.println("Calculate Button Pressed");
         	int choice = view.getComboBox().getSelectedIndex();
         	System.out.println("Choice: " + choice);
-        	switch(choice) {
-        		case 0: // no selected algorithm
-        				JOptionPane.showMessageDialog(view,"Please select an algorithm!");  
-        				break;
-        		case 1: scheduler = new RoundRobin();
-        				roundRobinAlgorithm();
-        				break;
-        		case 2: scheduler = new NonPreemptiveSJF();
-        				break;
-        		case 3: scheduler = new PriorityPreemptive();        				
-        				break;      
+        	
+        	try {
+	        	switch(choice) {
+	        		case 0: // no selected algorithm
+	        				JOptionPane.showMessageDialog(view,"Please select an algorithm!");  
+	        				throw new Exception();
+	        				//break;
+	        		case 1: scheduler = new RoundRobin();
+	        				roundRobinAlgorithm();
+	        				break;
+	        		case 2: scheduler = new NonPreemptiveSJF();
+	        				break;
+	        		case 3: scheduler = new PriorityPreemptive();  
+	        				break;      
+	        	}
+
+	        	// Calculate the process
+	        	boolean validData = readDataFromTable(scheduler);
+	        	if(!validData)
+	        		throw new Exception();
+	        	scheduler.process();
+	        	writeDataToTable(scheduler);
+	        	displayResult = new DisplayResult(scheduler);
+	        	
+        	} catch (Exception ex) {
+        		System.out.println("Process Fail Please Try Again");
         	}
-        	// Calculate the process
-        	readDataFromTable(scheduler);
-			scheduler.process();
-			writeDataToTable(scheduler);
-			new DisplayResult(scheduler);
-			view.setGanttChart(scheduler.getProcessOutputList());
         }
     };
     
-    public void readDataFromTable(CPUScheduler scheduler) {
+    public boolean readDataFromTable(CPUScheduler scheduler) {
     	String errorMessage = "";
     	try {
     		System.out.println("\n********************\n"
@@ -133,24 +144,34 @@ public class Controller {
     			else {
     				priority = Integer.parseInt((String) view.getTableModel().getValueAt(i, 3));
     			}
+  
+    			if(at < 0 || bt < 1 || priority < 1) {
+    				System.out.println(errorMessage);
+    				throw new Exception();
+    			}
 
     			scheduler.add(new Process("P"+(i+1), at, bt, priority));
     			System.out.println("P"+(i+1) + "\t" + at + "\t" + bt + "\t" + priority);
 	    	}
+    		return true;
+    		
     	} catch(Exception ex) {
     		JOptionPane.showMessageDialog(view, errorMessage);  
     	}
-	    	
+    	return false;	
     }
     
     public void writeDataToTable(CPUScheduler scheduler) {
     	// writing FT, WT, TAT to table
     	for (int i = 0; i < numberOfProcesses; i++) {
-			view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getFinishTime(), i, 4);
-			view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getWaitingTime(), i, 5);
-			view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getTurnaroundTime(), i, 6);
+    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getFinishTime(), i, 4);
+    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getWaitingTime(), i, 5);
+    		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getTurnaroundTime(), i, 6);
     	}
     	
+    	// Draw gantt chart
+    	view.setGanttChart(scheduler.getProcessOutputList());
+
     	// writing summary
     	view.getAvgTATTxtField().setText(scheduler.getAverageTurnAroundTime()+"");
     	view.getTotalTATTxtField().setText(scheduler.getTotalTurnAroundTime()+"");
