@@ -40,7 +40,7 @@ public class PriorityPreemptive extends CPUScheduler {
         
         /**
          * Section 2
-         * Priority Preemptive  
+         * Priority Preemptive Scheduling
          */
         while (!processList.isEmpty())
         {
@@ -97,7 +97,7 @@ public class PriorityPreemptive extends CPUScheduler {
         
         /**
          * Section 3
-         * re-arrange timeline
+         * set processOutput
          */
         for (int i = this.getProcessOutputList().size() - 1; i > 0; i--)
         {
@@ -112,44 +112,47 @@ public class PriorityPreemptive extends CPUScheduler {
         
         /**
          * Section 4
-         * Calculate turnaround time
-         *
+         * Calculate turnaround time and waiting time
+         */
         
         //HashMap (key, value) a normal map container
-        Map map = new HashMap();
+        Map<String, Integer> map = new HashMap<String, Integer>();
         
         //every input processList
-        for (ProcessInput process : this.getprocessList())
+        for (Process process : this.getProcessInputList())
         {
         	//clear map
             map.clear();
             
-            //every event in the timeLine
-            for (Event event : this.getTimeline())
+            //every processOutput in the List
+            for (ProcessOutput processOutput : this.getProcessOutputList())
             {
-            	//if the processList and timeline are the same process
-                if (event.getProcessName().equals(process.getProcessName()))
+            	//if the processList and ProcessOutputList are the same process
+                if (processOutput.getProcessName().equals(process.getProcessName()))
                 {
-                	//
-                    if (map.containsKey(event.getProcessName()))
+                	//if map has the same key
+                    if (map.containsKey(processOutput.getProcessName()))
                     {
-                        int w = event.getStartTime() - (int) map.get(event.getProcessName());
-                        process.setWaitingTime(process.getWaitingTime() + w);
+                    	// combine the waiting time
+                        int wt = processOutput.getStartTime() - (int) map.get(processOutput.getProcessName());
+                        process.setWaitingTime(process.getWaitingTime() + wt);
                     }
-                    else
+                    else //no same key
                     {
-                        process.setWaitingTime(event.getStartTime() - process.getArrivalTime());
+                    	// set new waiting time
+                        process.setWaitingTime(processOutput.getStartTime() - process.getArrivalTime());
                     }
                     
-                    // Add key and value into the map
-                    map.put(event.getProcessName(), event.getFinishTime());
+                    // Add or update key and value into the map
+                    map.put(processOutput.getProcessName(), processOutput.getFinishTime());
                 }
             }
             
             //set the turnaround time
             process.setTurnaroundTime(process.getWaitingTime() + process.getBurstTime());
+            //set the finish time
+            process.setFinishTime(process.getArrivalTime() + process.getTurnaroundTime());
         }
-        /***/
     }
 
 }
