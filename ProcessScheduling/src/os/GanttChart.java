@@ -27,7 +27,7 @@ public class GanttChart extends JPanel {
             	ProcessOutput event = processOutputList.get(i);
             	int width = 30 * (event.getFinishTime() - event.getStartTime() - 1);
                 int locationX = 30 * (i + 1) + previousWidth;
-                int locationY = 40;
+                int locationY = 20;
                 
                 g.drawRect(locationX, locationY, 30 + width, 30);
                 g.setFont(new Font("Segoe UI", Font.BOLD, 13));

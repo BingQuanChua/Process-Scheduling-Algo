@@ -57,7 +57,7 @@ public class View extends JFrame {
 		setContentPane(contentPane);
 		initComponents();
 		setIcon();
-		this.setSize(new Dimension(800, 770));
+		this.setSize(new Dimension(800, 700));
 		this.setResizable(false);
 		this.setVisible(true);
 	}
@@ -133,7 +133,7 @@ public class View extends JFrame {
 		ganttChartPanel = new GanttChart();
 		ganttChartPanel.setBackground(Color.WHITE);
 		JScrollPane scrollPane = new JScrollPane(ganttChartPanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(40, 420, 695, 150); // +=40
+		scrollPane.setBounds(40, 420, 695, 100); // +=40
 		contentPane.add(scrollPane);
 		
 		// calculation summary creation
@@ -141,52 +141,56 @@ public class View extends JFrame {
 		JLabel totalWTLabel = new JLabel("Total Waiting Time :");
 		totalWTLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totalWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalWTLabel.setBounds(40, 590, 175, 40);
+		totalWTLabel.setBounds(40, 540, 175, 40);
 		contentPane.add(totalWTLabel);
 
 		JLabel avgWTLabel = new JLabel("Average Waiting Time :");
 		avgWTLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		avgWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgWTLabel.setBounds(40, 640, 175, 40);
+		avgWTLabel.setBounds(40, 590, 175, 40);
 		contentPane.add(avgWTLabel);
 
 		JLabel totalTATLabel = new JLabel("Total Turnaround Time :");
 		totalTATLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totalTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		totalTATLabel.setBounds(389, 590, 188, 40);
+		totalTATLabel.setBounds(389, 540, 188, 40);
 		contentPane.add(totalTATLabel);
 		
 		JLabel avgTATLabel = new JLabel("Average Turnaround Time :");
 		avgTATLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
 		avgTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		avgTATLabel.setBounds(389, 640, 188, 40);
+		avgTATLabel.setBounds(389, 590, 188, 40);
 		contentPane.add(avgTATLabel);
 		
 		//textfield for total waiting time
 		totalWTTxtField = new JTextField();
+		totalWTTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totalWTTxtField.setColumns(10);
-		totalWTTxtField.setBounds(219, 591, 150, 40);
+		totalWTTxtField.setBounds(219, 540, 150, 40);
 		totalWTTxtField.setEditable(false);
 		contentPane.add(totalWTTxtField);
 		
 		//textfield for average waiting time
 		avgWTTxtField = new JTextField();
+		avgWTTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
 		avgWTTxtField.setColumns(10);
-		avgWTTxtField.setBounds(219, 641, 150, 40);
+		avgWTTxtField.setBounds(219, 590, 150, 40);
 		avgWTTxtField.setEditable(false);
 		contentPane.add(avgWTTxtField);
 		
 		//textfield for total turnaround time
 		totalTATTxtField = new JTextField();
+		totalTATTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totalTATTxtField.setColumns(10);
-		totalTATTxtField.setBounds(585, 590, 150, 40);
+		totalTATTxtField.setBounds(585, 540, 150, 40);
 		totalTATTxtField.setEditable(false);
 		contentPane.add(totalTATTxtField);
 		
 		//textfield for average turnaround time
 		avgTATTxtField = new JTextField();
+		avgTATTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
 		avgTATTxtField.setColumns(10);
-		avgTATTxtField.setBounds(585, 640, 150, 40);
+		avgTATTxtField.setBounds(585, 590, 150, 40);
 		avgTATTxtField.setEditable(false);
 		contentPane.add(avgTATTxtField);	
 	}
