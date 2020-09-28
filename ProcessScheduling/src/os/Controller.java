@@ -35,6 +35,7 @@ public class Controller {
 			}
 			else {
 				System.out.println("Maximum number of rows reached!");
+				JOptionPane.showMessageDialog(view,"Maximum number of processes reached!");
 			}
         	
         }   
@@ -53,6 +54,7 @@ public class Controller {
 			} 
 			else {
         		System.out.println("Minimum number of rows reached!");
+        		JOptionPane.showMessageDialog(view,"Minimum number of processes reached!");
         	}
         	
         }

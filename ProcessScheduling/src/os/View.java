@@ -67,7 +67,7 @@ public class View extends JFrame {
 		// algorithm selection creation
 		
 		JLabel algoPanel = new JLabel("Algorithm : ");
-		algoPanel.setFont(new Font("Dialog", Font.PLAIN, 16));
+		algoPanel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		algoPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		algoPanel.setBounds(40, 40, 150, 40);
 		contentPane.add(algoPanel);
@@ -94,26 +94,26 @@ public class View extends JFrame {
 		
 		// controls creation
 		addButton = new JButton("Add");
-		addButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		addButton.setFont(new Font("Dialog", Font.PLAIN, 15));
 		addButton.setBackground(new Color(255, 204, 153));
 		addButton.setBounds(219, 310, 120, 40);
 		contentPane.add(addButton);
 		
 		removeButton = new JButton("Remove");
-		removeButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		removeButton.setFont(new Font("Dialog", Font.PLAIN, 15));
 		removeButton.setForeground(new Color(0, 0, 0));
 		removeButton.setBackground(new Color(255, 204, 153));
 		removeButton.setBounds(351, 310, 120, 40);
 		contentPane.add(removeButton);
 		
 		resetButton = new JButton("Reset");
-		resetButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		resetButton.setFont(new Font("Dialog", Font.PLAIN, 15));
 		resetButton.setBackground(new Color(255, 204, 153));
 		resetButton.setBounds(483, 310, 120, 40);
 		contentPane.add(resetButton);
 		
 		calculateButton = new JButton("Calculate");
-		calculateButton.setFont(new Font("Dialog", Font.PLAIN, 16));
+		calculateButton.setFont(new Font("Dialog", Font.PLAIN, 15));
 		calculateButton.setBackground(new Color(255, 204, 153));
 		calculateButton.setBounds(615, 310, 120, 40);
 		contentPane.add(calculateButton);
@@ -125,7 +125,7 @@ public class View extends JFrame {
 		contentPane.add(separator);
 		
 		JLabel gcLabel = new JLabel("Gantt Chart :");
-		gcLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
+		gcLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		gcLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		gcLabel.setBounds(45, 390, 107, 20);
 		contentPane.add(gcLabel);
@@ -139,32 +139,32 @@ public class View extends JFrame {
 		// calculation summary creation
 
 		JLabel totalWTLabel = new JLabel("Total Waiting Time :");
-		totalWTLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
+		totalWTLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		totalWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalWTLabel.setBounds(40, 540, 175, 40);
 		contentPane.add(totalWTLabel);
 
 		JLabel avgWTLabel = new JLabel("Average Waiting Time :");
-		avgWTLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
+		avgWTLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		avgWTLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		avgWTLabel.setBounds(40, 590, 175, 40);
 		contentPane.add(avgWTLabel);
 
 		JLabel totalTATLabel = new JLabel("Total Turnaround Time :");
-		totalTATLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
+		totalTATLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		totalTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalTATLabel.setBounds(389, 540, 188, 40);
 		contentPane.add(totalTATLabel);
 		
 		JLabel avgTATLabel = new JLabel("Average Turnaround Time :");
-		avgTATLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
+		avgTATLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
 		avgTATLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		avgTATLabel.setBounds(389, 590, 188, 40);
 		contentPane.add(avgTATLabel);
 		
 		//textfield for total waiting time
 		totalWTTxtField = new JTextField();
-		totalWTTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
+		totalWTTxtField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		totalWTTxtField.setColumns(10);
 		totalWTTxtField.setBounds(219, 540, 150, 40);
 		totalWTTxtField.setEditable(false);
@@ -172,7 +172,7 @@ public class View extends JFrame {
 		
 		//textfield for average waiting time
 		avgWTTxtField = new JTextField();
-		avgWTTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
+		avgWTTxtField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		avgWTTxtField.setColumns(10);
 		avgWTTxtField.setBounds(219, 590, 150, 40);
 		avgWTTxtField.setEditable(false);
@@ -180,7 +180,7 @@ public class View extends JFrame {
 		
 		//textfield for total turnaround time
 		totalTATTxtField = new JTextField();
-		totalTATTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
+		totalTATTxtField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		totalTATTxtField.setColumns(10);
 		totalTATTxtField.setBounds(585, 540, 150, 40);
 		totalTATTxtField.setEditable(false);
@@ -188,7 +188,7 @@ public class View extends JFrame {
 		
 		//textfield for average turnaround time
 		avgTATTxtField = new JTextField();
-		avgTATTxtField.setFont(new Font("Dialog", Font.PLAIN, 16));
+		avgTATTxtField.setFont(new Font("Dialog", Font.PLAIN, 15));
 		avgTATTxtField.setColumns(10);
 		avgTATTxtField.setBounds(585, 590, 150, 40);
 		avgTATTxtField.setEditable(false);
