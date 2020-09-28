@@ -63,9 +63,9 @@ public abstract class CPUScheduler {
 	}
 	
 	// return average waiting time
-	public double getAverageWaitingTime()
+	public float getAverageWaitingTime()
 	{
-		double avg = 0.0;
+		float avg = (float) 0.0;
 
 		for (Process processInput : processInputList)
 		{
@@ -76,9 +76,9 @@ public abstract class CPUScheduler {
 	}
 	
 	// return average turnaround time
-	public double getAverageTurnAroundTime()
+	public float getAverageTurnAroundTime()
 	{
-		double avg = 0.0;
+		float avg = (float) 0.0;
 
 		for (Process inptprocessInput : processInputList)
 		{
