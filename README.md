@@ -23,11 +23,11 @@ Featured Algorithms:
 
 Basic UI
 
-```
-<img align="center" src="https://github.com/BingQuanChua/process-scheduling-alo/ProcessScheduling/screenshot/ss1.png?raw=true">
 
-<img align="center" src="https://github.com/BingQuanChua/process-scheduling-alo/ProcessScheduling/screenshot/ss2.png?raw=true">
-```
+<img align="center" src="https://github.com/BingQuanChua/process-scheduling-algo/tree/master/ProcessScheduling/screenshot/ss1.png?raw=true">
+
+<img align="center" src="https://github.com/BingQuanChua/process-scheduling-algo/tree/master/ProcessScheduling/screenshot/ss2.png?raw=true">
+
 
 <h2>
   Running the program
