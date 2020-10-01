@@ -10,13 +10,28 @@ TC01 Operating System Assignment
 Featured Algorithms:
 
 1. Round Robin
+
 2. Non Preemptive SJF
+
 3. Preemptive Priority
 
+   
 
+<h2>
+    Screenshots
+</h2>
+
+Basic UI
+
+```
+<img align="center" src="https://github.com/BingQuanChua/process-scheduling-alo/ProcessScheduling/screenshot/ss1.png?raw=true">
+
+<img align="center" src="https://github.com/BingQuanChua/process-scheduling-alo/ProcessScheduling/screenshot/ss2.png?raw=true">
+```
 
 <h2>
   Running the program
 </h2>
 
-Run **ProcessScedulingAlgorithm.jar** inside ProcessScheduling folder.
+Run **ProcessScedulingAlgorithm.jar**.
+
