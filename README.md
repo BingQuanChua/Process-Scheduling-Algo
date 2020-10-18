@@ -27,10 +27,14 @@ Featured Algorithms:
 
 Basic UI
 
+<p align="center">
+  <img align="center" src="https://github.com/BingQuanChua/process-scheduling-algo/blob/master/screenshot/ss1.PNG" width="700" height="620">
+</p>
 
-<img align="center" src="https://github.com/BingQuanChua/process-scheduling-algo/blob/master/ProcessScheduling/screenshot/ss1.PNG" width="500" height="440">
+<p align="center">
+  <img align="center" src="https://github.com/BingQuanChua/process-scheduling-algo/blob/master/screenshot/ss2.PNG" width="700" height="620">
+</p>
 
-<img align="center" src="https://github.com/BingQuanChua/process-scheduling-algo/blob/master/ProcessScheduling/screenshot/ss2.PNG" width="500" height="440">
 
 
 
