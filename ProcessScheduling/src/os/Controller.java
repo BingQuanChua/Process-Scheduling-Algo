@@ -118,7 +118,6 @@ public class Controller {
 	        		/*
 	        		 * dlc
 	        		 * 
-	        		 * FCFS
 	        		 * Preemptive SJF
 	        		 * Non preemptive priority
 	        		 */
@@ -183,7 +182,13 @@ public class Controller {
     public void writeDataToTable(CPUScheduler scheduler) {
     	// writing FT, WT, TAT to table
     	for (int i = 0; i < numberOfProcesses; i++) {
-    		char processNum = scheduler.getProcessInputList().get(i).getProcessName().charAt(1);
+    		String processNum = "";
+    		if (i == 9) {
+    			processNum = "10";
+    		} 
+    		else {
+    			processNum = scheduler.getProcessInputList().get(i).getProcessName().substring(1, 2);
+    		}
     		int index = ( Integer.parseInt(String.valueOf(processNum)) - 1 );
     		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getFinishTime(), index, 4);
     		view.getTableModel().setValueAt(scheduler.getProcessInputList().get(i).getWaitingTime(), index, 5);

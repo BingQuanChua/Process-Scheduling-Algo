@@ -13,18 +13,28 @@ public class FCFS extends CPUScheduler {
 		int timeCounter = 0;
 		int totalTime = 0;
 		
-		// sorting according to Arrival Time
+		// sorting according to Arrival Time and Burst Time
 		Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
-	          if (((Process) o1).getArrivalTime() == ((Process) o2).getArrivalTime()) {
-	               return 0;
-	          }
-	          else if (((Process) o1).getArrivalTime() < ((Process) o2).getArrivalTime()) {
-	               return -1;
-	          }
-	           else {
-	               return 1;
-	          }
-	    });
+            if (((Process) o1).getArrivalTime() == ((Process) o2).getArrivalTime()) {
+            	// same arrival time, compare burst time
+            	if (((Process) o1).getBurstTime() == ((Process) o2).getBurstTime()) {
+            		return 0;
+            	}
+            	else if (((Process) o1).getBurstTime() < ((Process) o2).getBurstTime()) {
+                    return -1;
+                }
+                else {
+                    return 1;
+                }
+            }
+            else if (((Process) o1).getArrivalTime() < ((Process) o2).getArrivalTime()) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
+            
+        });
 		
 		// copy to new ArrayList
 		processList = new ArrayList<Process>();

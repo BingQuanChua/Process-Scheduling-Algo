@@ -1,6 +1,6 @@
 package os;
 
-import java.util.*; 
+import java.util.*;
   
 public class NonPreemptiveSJF extends CPUScheduler{ 
   
@@ -12,20 +12,26 @@ public class NonPreemptiveSJF extends CPUScheduler{
 		//declare the variables
 		int starting = 0, total = 0;
 	    
-	    // sorting according to Arrival Time
-	    Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
-            if (((Process) o1).getArrivalTime() == ((Process) o2).getArrivalTime())
-            {
-                return 0;
+		// sorting according to Arrival Time and Burst Time
+		Collections.sort(this.getProcessInputList(), (Object o1, Object o2) -> {
+            if (((Process) o1).getArrivalTime() == ((Process) o2).getArrivalTime()) {
+            	// same arrival time, compare burst time
+            	if (((Process) o1).getBurstTime() == ((Process) o2).getBurstTime()) {
+            		return 0;
+            	}
+            	else if (((Process) o1).getBurstTime() < ((Process) o2).getBurstTime()) {
+                    return -1;
+                }
+                else {
+                    return 1;
+                }
             }
-            else if (((Process) o1).getArrivalTime() < ((Process) o2).getArrivalTime())
-            {
+            else if (((Process) o1).getArrivalTime() < ((Process) o2).getArrivalTime()) {
                 return -1;
             }
-            else
-            {
+            else {
                 return 1;
-            }
+            }	            
         });
 
 		for (Process process : this.getProcessInputList()) {
