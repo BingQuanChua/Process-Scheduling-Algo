@@ -105,13 +105,23 @@ public class Controller {
 	        				JOptionPane.showMessageDialog(view,"Please select an algorithm!");  
 	        				throw new Exception();
 	        				//break;
-	        		case 1: scheduler = new RoundRobin();
-	        				roundRobinAlgorithm();
+	        		case 1: scheduler = new FCFS();
 	        				break;
 	        		case 2: scheduler = new NonPreemptiveSJF();
 	        				break;
 	        		case 3: scheduler = new PriorityPreemptive();  
-	        				break;      
+	        				break;    
+	        		case 4: scheduler = new RoundRobin();
+	        				roundRobinAlgorithm();
+	        				break;
+	        				
+	        		/*
+	        		 * dlc
+	        		 * 
+	        		 * FCFS
+	        		 * Preemptive SJF
+	        		 * Non preemptive priority
+	        		 */
 	        	}
 
 	        	// Calculate the process
@@ -143,7 +153,8 @@ public class Controller {
     			int bt = Integer.parseInt((String) view.getTableModel().getValueAt(i, 2));
     			int priority;
     			
-    			if ((scheduler instanceof NonPreemptiveSJF || scheduler instanceof RoundRobin) && (String) view.getTableModel().getValueAt(i, 3) == "") {
+    			// for processes that doesn't rely on priority
+    			if ((scheduler instanceof FCFS || scheduler instanceof NonPreemptiveSJF || scheduler instanceof RoundRobin) && (String) view.getTableModel().getValueAt(i, 3) == "") {
     					priority = 1; // in case user did not enter
     					view.getTableModel().setValueAt("1", i, 3);
     			}

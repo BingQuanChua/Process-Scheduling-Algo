@@ -28,7 +28,12 @@ public class View extends JFrame {
 	
 	private JPanel contentPane;
 	private JComboBox<String> comboBox;
-	private final String[] options = {"--please select an algorithm--", "Round Robin", "Non Preemptive SJF", "Preemptive Priority"};
+	private final String[] options = 
+		{"--please select an algorithm--", 
+			"First Come First Serve (FCFS)", 
+			"Non-Preemptive Shortest Job First", 
+			"Preemptive Priority", 
+			"Round Robin"};
 	private JButton addButton;
 	private JButton removeButton;
 	private JButton resetButton;
