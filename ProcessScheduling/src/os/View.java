@@ -31,8 +31,10 @@ public class View extends JFrame {
 	private final String[] options = 
 		{"--please select an algorithm--", 
 			"First Come First Serve (FCFS)", 
+			"???", //Preemptive Shortest Job First
 			"Non-Preemptive Shortest Job First", 
 			"Preemptive Priority", 
+			"Non-Preemptive Priority",
 			"Round Robin"};
 	private JButton addButton;
 	private JButton removeButton;
@@ -139,6 +141,7 @@ public class View extends JFrame {
 		ganttChartPanel.setBackground(Color.WHITE);
 		JScrollPane scrollPane = new JScrollPane(ganttChartPanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBounds(40, 420, 695, 100); // +=40
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 		contentPane.add(scrollPane);
 		
 		// calculation summary creation

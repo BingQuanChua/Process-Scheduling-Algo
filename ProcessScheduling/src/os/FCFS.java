@@ -50,10 +50,16 @@ public class FCFS extends CPUScheduler {
 		
 		do {
 			Process p = processList.get(0);
+			if (p.getArrivalTime() > timeCounter) {
+				this.getProcessOutputList().add(new ProcessOutput("--", timeCounter, p.getArrivalTime()));
+				timeCounter = p.getArrivalTime();
+			}
+
 			int bt = p.getBurstTime();
 			this.getProcessOutputList().add(new ProcessOutput(p.getProcessName(), timeCounter, timeCounter+=bt));
-			// timeCounter += bt;
 			processList.remove(0);
+			
+			
 		} while (timeCounter < totalTime);
 		
 		// setting FT, TAT and WT for all the Process(es) in processInputList

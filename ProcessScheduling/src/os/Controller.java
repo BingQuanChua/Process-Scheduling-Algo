@@ -107,20 +107,17 @@ public class Controller {
 	        				//break;
 	        		case 1: scheduler = new FCFS();
 	        				break;
-	        		case 2: scheduler = new NonPreemptiveSJF();
+	        		case 2: // scheduler = new PreemptiveSJF();
 	        				break;
-	        		case 3: scheduler = new PriorityPreemptive();  
+	        		case 3: scheduler = new NonPreemptiveSJF();
+	        				break;
+	        		case 4: scheduler = new PreemptivePriority();  
 	        				break;    
-	        		case 4: scheduler = new RoundRobin();
+	        		case 5: scheduler = new NonPreemptivePriority();  
+    						break; 
+	        		case 6: scheduler = new RoundRobin();
 	        				roundRobinAlgorithm();
 	        				break;
-	        				
-	        		/*
-	        		 * dlc
-	        		 * 
-	        		 * Preemptive SJF
-	        		 * Non preemptive priority
-	        		 */
 	        	}
 
 	        	// Calculate the process

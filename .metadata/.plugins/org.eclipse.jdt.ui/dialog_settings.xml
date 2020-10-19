@@ -46,6 +46,7 @@
 		<item key="JarManifestWizardPage.SEAL_JAR" value="false"/>
 		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
 			<item value="ProcessScheduling\ProcessScedulingAlgorithm.jar"/>
+			<item value="C:\Users\User\Downloads\Operating System\Assignment\process-scheduling-algo\ProcessScedulingAlgorithm.jar"/>
 			<item value="ProcessScheduling/ProcessScedulingAlgorithm.jar"/>
 			<item value="C:\Users\User\Desktop\OS.jar"/>
 		</list>
