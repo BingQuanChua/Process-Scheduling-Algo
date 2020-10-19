@@ -107,7 +107,7 @@ public class Controller {
 	        				//break;
 	        		case 1: scheduler = new FCFS();
 	        				break;
-	        		case 2: // scheduler = new PreemptiveSJF();
+	        		case 2: scheduler = new PreemptiveSJF();
 	        				break;
 	        		case 3: scheduler = new NonPreemptiveSJF();
 	        				break;
@@ -150,7 +150,7 @@ public class Controller {
     			int priority;
     			
     			// for processes that doesn't rely on priority
-    			if ((scheduler instanceof FCFS || scheduler instanceof NonPreemptiveSJF || scheduler instanceof RoundRobin) && (String) view.getTableModel().getValueAt(i, 3) == "") {
+    			if ((scheduler instanceof FCFS || scheduler instanceof PreemptiveSJF || scheduler instanceof NonPreemptiveSJF || scheduler instanceof RoundRobin) && (String) view.getTableModel().getValueAt(i, 3) == "") {
     					priority = 1; // in case user did not enter
     					view.getTableModel().setValueAt("1", i, 3);
     			}

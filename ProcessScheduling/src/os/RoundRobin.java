@@ -60,7 +60,8 @@ public class RoundRobin extends CPUScheduler{
         
         do {
         	if (readyQueue.size() == 0) {
-        		continue; // skips, I doubt will happen but just in case
+        		this.getProcessOutputList().add(new ProcessOutput("--", timeCounter, ++timeCounter));
+				continue; // skips, I doubt will happen but just in case
         	}
         	
         	Process p = readyQueue.peek();

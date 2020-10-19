@@ -31,7 +31,7 @@ public class View extends JFrame {
 	private final String[] options = 
 		{"--please select an algorithm--", 
 			"First Come First Serve (FCFS)", 
-			"???", //Preemptive Shortest Job First
+			"Preemptive Shortest Job First", 
 			"Non-Preemptive Shortest Job First", 
 			"Preemptive Priority", 
 			"Non-Preemptive Priority",
