@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.Image;
 
 public class View extends JFrame {
 
@@ -50,6 +51,7 @@ public class View extends JFrame {
 	private JTextField totalTATTxtField;
 	private JTextField avgWTTxtField;
 	private JTextField totalWTTxtField;
+	private JButton helpButton;
 	private ImageIcon icon;
 
 	// create the frame
@@ -201,16 +203,38 @@ public class View extends JFrame {
 		avgTATTxtField.setBounds(585, 590, 150, 40);
 		avgTATTxtField.setEditable(false);
 		contentPane.add(avgTATTxtField);	
+		
+		// help button
+		helpButton = new JButton("");
+		helpButton.setBounds(750, 10, 30, 30);
+		helpButton.setOpaque(false);
+		helpButton.setContentAreaFilled(false);
+		helpButton.setBorderPainted(false);
+		helpButton.setBackground(null);
+		setHelpButtonIcon();
+		contentPane.add(helpButton);
+		
 	}
 	
 	// set icon
 	private void setIcon() {
 		try {
 			icon = new ImageIcon(ImageIO.read(getClass().getResource("images/icon.png")));
+			this.setIconImage(icon.getImage());
 		} catch (IOException ex) {
 			System.out.println("Image not found");
 		}
-		this.setIconImage(icon.getImage());
+	}
+	
+	// set help button icon
+	private void setHelpButtonIcon() {
+		try {
+			Image help = ImageIO.read(getClass().getResource("images/help.png"));
+			Image logo = help.getScaledInstance(25, 25, Image.SCALE_DEFAULT);
+			helpButton.setIcon(new ImageIcon(logo));
+		} catch (IOException ex) {
+			System.out.println("Image not found");
+		}
 	}
 	
 	public JComboBox<String> getComboBox() {
@@ -272,5 +296,9 @@ public class View extends JFrame {
 	
 	public JTextField getTotalWTTxtField() {
 		return totalWTTxtField;
+	}
+	
+	public JButton getHelpButton() {
+		return helpButton;
 	}
 }

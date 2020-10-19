@@ -13,7 +13,7 @@ Featured Algorithms:
 
 1. First Come First Serve (FCFS)
 
-2. [soon™] Preemptive Shortest Job First
+2. Preemptive Shortest Job First
 
 3. Non-Preemptive Shortest Job First
 

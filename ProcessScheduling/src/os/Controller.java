@@ -21,6 +21,7 @@ public class Controller {
     	view.getRemoveButton().addActionListener(removeButtonListener);
         view.getResetButton().addActionListener(resetButtonListener);
         view.getCalculateButton().addActionListener(calculateButtonListener);
+        view.getHelpButton().addActionListener(helpButtonListener);
     }
     
     // add new process
@@ -213,4 +214,21 @@ public class Controller {
 			JOptionPane.showMessageDialog(view,"Invalid Time Quantum!\nProceed with Time Quantum = 3");  
 		}
     }
+    
+    ActionListener helpButtonListener = new ActionListener() {
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		String message = "########## INSTRUCTION ########## \r\n"
+    				+ "1. Select a scheduling algorithm from the drop-down list.\r\n"
+    				+ "2. Enter the Arrival Time, Burst Time and Priority (optional for some algorithms)\r\n"
+    				+ "   for all the processes. You may click 'Add' or 'Remove' to change the number of\r\n"
+    				+ "   processes.\r\n"
+    				+ "3. Click 'Calculate'. (for Round Robin Scheduling, a dialog box will pop up to\r\n"
+    				+ "   prompt the value of Time Quantum)\r\n"
+    				+ "4. The program will generate all of the results. You may select a new algorithm\r\n"
+    				+ "   and click 'Calculate' to generate a new set of results or just simply click\r\n"
+    				+ "   'Reset' to clear all the previously entered data.";
+    		JOptionPane.showMessageDialog(view, message);
+    	}
+    };
 }
